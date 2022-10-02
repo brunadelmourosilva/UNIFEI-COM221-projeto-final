@@ -13,6 +13,7 @@ public class Produto {
     private String nome;
     private Integer estoque;
     private Double preco;
+    private String imageUrl;
     @ManyToMany
     @JoinTable(
             name = "produto_categoria",
@@ -80,5 +81,13 @@ public class Produto {
 
     public void setPedidos(final List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

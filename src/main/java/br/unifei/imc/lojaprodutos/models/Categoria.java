@@ -11,6 +11,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private String imageUrl;
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos;
 
@@ -41,5 +42,13 @@ public class Categoria {
 
     public void setProdutos(final List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

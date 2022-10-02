@@ -15,6 +15,7 @@ public class Cliente {
     //@Column(unique=true)
     private String email;
     private String cpf;
+    private String imageUrl;
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos;
     @OneToMany(mappedBy = "cliente")
@@ -72,5 +73,13 @@ public class Cliente {
 
     public void setPedidos(final List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
