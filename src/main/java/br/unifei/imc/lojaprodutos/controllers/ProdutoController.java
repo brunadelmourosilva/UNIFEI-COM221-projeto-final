@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
+import br.unifei.imc.lojaprodutos.dto.response.ProdutoResponse;
 import br.unifei.imc.lojaprodutos.models.Categoria;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.services.CategoriaService;
@@ -24,7 +25,7 @@ public class ProdutoController {
 
     @GetMapping
     @Operation(summary = "Retorna todos os produtos")
-    public ResponseEntity<List<Produto>> getAllProducts() {
+    public ResponseEntity<List<ProdutoResponse>> getAllProducts() {
         var produtos = produtoService.getAllProducts();
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);
@@ -32,7 +33,7 @@ public class ProdutoController {
 
     @GetMapping(value = "/categoria/{id}")
     @Operation(summary = "Retorna todos os produtos de uma categoria")
-    public ResponseEntity<List<Produto>> getAllProductsByCategory(@PathVariable Integer id) {
+    public ResponseEntity<List<ProdutoResponse>> getAllProductsByCategory(@PathVariable Integer id) {
         var produtos = produtoService.getAllProductsByCategory(id);
 
         return new ResponseEntity<>(produtos, HttpStatus.OK);

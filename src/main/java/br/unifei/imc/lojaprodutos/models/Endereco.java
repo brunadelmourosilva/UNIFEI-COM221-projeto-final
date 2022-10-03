@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "TB_ENDERECO")
-@Schema(hidden = true)
+
 public class Endereco {
 
     @Id

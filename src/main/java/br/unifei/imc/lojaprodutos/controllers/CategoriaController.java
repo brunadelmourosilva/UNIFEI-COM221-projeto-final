@@ -1,11 +1,10 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
-import br.unifei.imc.lojaprodutos.models.Categoria;
+import br.unifei.imc.lojaprodutos.dto.response.CategoriaResponse;
 import br.unifei.imc.lojaprodutos.services.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +25,7 @@ public class CategoriaController {
 
     @GetMapping
     @Operation(summary = "Retorna todas as categorias")
-    public ResponseEntity<List<Categoria>> getAllCategories() {
+    public ResponseEntity<List<CategoriaResponse>> getAllCategories() {
         var categorias = categoriaService.getAllCategories();
 
         return new ResponseEntity<>(categorias, HttpStatus.OK);

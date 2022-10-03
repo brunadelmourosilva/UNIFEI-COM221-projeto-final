@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
+import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
 import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.services.ClienteService;
@@ -23,7 +24,7 @@ public class ClienteController {
 
     @GetMapping(value = "/enderecos/{id}")
     @Operation(summary = "Retorna todos os endereços de um cliente")
-    public ResponseEntity<List<Endereco>> getAllAddresses(@PathVariable Integer id) {
+    public ResponseEntity<List<EnderecoResponse>> getAllAddresses(@PathVariable Integer id) {
         var enderecos = clienteService.getAllAddressesByCustomer(id);
 
         return new ResponseEntity<>(enderecos, HttpStatus.OK);

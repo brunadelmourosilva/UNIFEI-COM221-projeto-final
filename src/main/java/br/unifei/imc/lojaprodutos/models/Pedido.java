@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "TB_PEDIDO")
-@Schema(hidden = true)
+
 public class Pedido {
 
     @Id

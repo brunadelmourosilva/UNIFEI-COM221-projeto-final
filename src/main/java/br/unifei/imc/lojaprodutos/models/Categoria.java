@@ -18,7 +18,6 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "TB_CATEGORIA")
-@Schema(hidden = true)
 public class Categoria {
 
     @Id

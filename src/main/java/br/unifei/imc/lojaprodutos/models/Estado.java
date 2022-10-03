@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "TB_ESTADO")
-@Schema(hidden = true)
+
 public class Estado {
 
     @Id

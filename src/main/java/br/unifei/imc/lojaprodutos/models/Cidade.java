@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "TB_CIDADE")
-@Schema(hidden = true)
+
 public class Cidade {
 
     @Id
