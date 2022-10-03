@@ -3,97 +3,47 @@ package br.unifei.imc.lojaprodutos.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
 @Table(name = "TB_ENDERECO")
 public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ENDERECO_ID")
     private Integer id;
+
+    @Column(name = "RUA")
     private String rua;
+
+    @Column(name = "NUMERO")
     private String numero;
+
+    @Column(name = "COMPLEMENTO")
     private String complemento;
+
+    @Column(name = "BAIRRO")
     private String bairro;
+
+    @Column(name = "CEP")
     private String cep;
+
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "CLIENTE_ID")
+    @JoinColumn(name = "RF_CLIENTE")
     private Cliente cliente;
+
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "CIDADE_ID")
+    @JoinColumn(name = "RF_CIDADE")
     private Cidade cidade;
 
-    public Endereco() {
-        //default constructor
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(final Integer id) {
-        this.id = id;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(final String rua) {
-        this.rua = rua;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(final String numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(final String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(final String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(final String cep) {
-        this.cep = cep;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(final Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(final Cidade cidade) {
-        this.cidade = cidade;
-    }
 }
