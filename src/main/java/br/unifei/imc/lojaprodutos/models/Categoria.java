@@ -3,60 +3,37 @@ package br.unifei.imc.lojaprodutos.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
 @Table(name = "TB_CATEGORIA")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CATEGORIA_ID")
     private Integer id;
+
+    @Column(name = "NOME_CATEGORIA")
     private String nome;
+
+    @Column(name = "URL_IMAGEM")
     private String imageUrl;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos;
 
-    public Categoria() {
-        //default constructor
-        this.produtos = new ArrayList<>();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(final Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(final List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(final String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }
+
+

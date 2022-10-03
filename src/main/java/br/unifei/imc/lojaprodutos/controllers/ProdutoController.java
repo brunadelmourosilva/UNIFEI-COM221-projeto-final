@@ -4,6 +4,7 @@ import br.unifei.imc.lojaprodutos.models.Categoria;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.services.CategoriaService;
 import br.unifei.imc.lojaprodutos.services.ProdutoService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
+@AllArgsConstructor
 public class ProdutoController {
 
-    private final ProdutoService produtoService;
-
-    public ProdutoController(final ProdutoService produtoService) {
-        this.produtoService = produtoService;
-    }
+    private ProdutoService produtoService;
 
     @GetMapping
     public ResponseEntity<List<Produto>> getAllProducts() {
@@ -30,7 +28,7 @@ public class ProdutoController {
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/categoria/{id}")
     public ResponseEntity<List<Produto>> getAllProductsByCategory(@PathVariable Integer id) {
         var produtos = produtoService.getAllProductsByCategory(id);
 

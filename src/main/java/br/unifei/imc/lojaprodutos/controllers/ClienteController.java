@@ -3,6 +3,7 @@ package br.unifei.imc.lojaprodutos.controllers;
 import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.services.ClienteService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@AllArgsConstructor
 public class ClienteController {
 
-    private final ClienteService clienteService;
-
-    public ClienteController(final ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
+    private ClienteService clienteService;
 
     @GetMapping(value = "/enderecos/{id}")
     public ResponseEntity<List<Endereco>> getAllAddresses(@PathVariable Integer id) {

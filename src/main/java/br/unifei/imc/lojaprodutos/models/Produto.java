@@ -2,98 +2,50 @@ package br.unifei.imc.lojaprodutos.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
 @Table(name = "TB_PRODUTO")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUTO_ID")
     private Integer id;
+
+    @Column(name = "NOME_PRODUTO")
     private String nome;
+
+    @Column(name = "QTD_ESTOQUE")
     private Integer estoque;
+
+    @Column(name = "PRECO")
     private Double preco;
+
+    @Column(name = "URL_IMAGEM")
     private String imageUrl;
+
     @ManyToMany
     @JoinTable(
-            name = "PRODUTO_CATEGORIA",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+            name = "TB_PRODUTO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "RF_PRODUTO"),
+            inverseJoinColumns = @JoinColumn(name = "RF_CATEGORIA"))
     private List<Categoria> categorias;
 
     @ManyToMany
     @JoinTable(
-            name = "produto_pedido",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "pedido_id")
-    )
+            name = "TB_PRODUTO_PEDIDO",
+            joinColumns = @JoinColumn(name = "RF_PRODUTO"),
+            inverseJoinColumns = @JoinColumn(name = "RF_PEDIDO"))
     private List<Pedido> pedidos;
 
-    public Produto() {
-        //default constructor
-        this.categorias = new ArrayList<>();
-        this.pedidos = new ArrayList<>();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(final Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
-
-    public Integer getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(final Integer estoque) {
-        this.estoque = estoque;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(final Double preco) {
-        this.preco = preco;
-    }
-
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(final List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(final List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(final String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }
