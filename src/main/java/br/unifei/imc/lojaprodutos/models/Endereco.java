@@ -1,6 +1,7 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "TB_ENDERECO")
+@Schema(hidden = true)
 public class Endereco {
 
     @Id
