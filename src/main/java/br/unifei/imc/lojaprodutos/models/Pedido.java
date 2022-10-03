@@ -1,6 +1,8 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
 public class Pedido {
 
     @Id
