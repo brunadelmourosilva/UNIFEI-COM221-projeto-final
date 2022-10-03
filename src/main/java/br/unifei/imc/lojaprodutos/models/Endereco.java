@@ -1,9 +1,14 @@
 package br.unifei.imc.lojaprodutos.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
 public class Endereco {
 
     @Id
