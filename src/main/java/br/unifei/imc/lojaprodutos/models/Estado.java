@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_ESTADO")
 public class Estado {
 
     @Id

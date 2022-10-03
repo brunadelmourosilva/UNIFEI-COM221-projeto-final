@@ -1,14 +1,15 @@
 package br.unifei.imc.lojaprodutos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_ENDERECO")
 public class Endereco {
 
     @Id
@@ -19,11 +20,13 @@ public class Endereco {
     private String complemento;
     private String bairro;
     private String cep;
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "CLIENTE_ID")
     private Cliente cliente;
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "cidade_id")
+    @JoinColumn(name = "CIDADE_ID")
     private Cidade cidade;
 
     public Endereco() {

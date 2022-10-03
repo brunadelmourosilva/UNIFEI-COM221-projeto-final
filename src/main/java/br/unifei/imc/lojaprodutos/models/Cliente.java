@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_CLIENTE")
 public class Cliente {
 
     @Id

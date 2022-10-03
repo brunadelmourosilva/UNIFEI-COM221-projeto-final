@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_PRODUTO")
 public class Produto {
 
     @Id
@@ -21,16 +22,16 @@ public class Produto {
     private String imageUrl;
     @ManyToMany
     @JoinTable(
-            name = "produto_categoria",
-            joinColumns = @JoinColumn(name = "categoria_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+            name = "PRODUTO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias;
 
     @ManyToMany
     @JoinTable(
             name = "produto_pedido",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "pedido_id")
     )
     private List<Pedido> pedidos;
 

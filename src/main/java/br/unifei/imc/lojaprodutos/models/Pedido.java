@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_PEDIDO")
 public class Pedido {
 
     @Id

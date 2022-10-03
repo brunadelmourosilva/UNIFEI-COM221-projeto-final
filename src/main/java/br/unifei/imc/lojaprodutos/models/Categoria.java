@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(name = "TB_CATEGORIA")
 public class Categoria {
 
     @Id
@@ -17,6 +19,7 @@ public class Categoria {
     private Integer id;
     private String nome;
     private String imageUrl;
+    @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos;
 
