@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +24,6 @@ public class ClienteService {
 
         return enderecos.stream()
                 .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
-                .toList();
+                .collect(Collectors.toList());
     }
 }

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,6 +22,6 @@ public class CategoriaService {
 
         return categorias.stream()
                 .map(categoria -> modelMapper.map(categoria, CategoriaResponse.class))
-                .toList();
+                .collect(Collectors.toList());
     }
 }
