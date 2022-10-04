@@ -1,6 +1,5 @@
 package br.unifei.imc.lojaprodutos.dto.response;
 
-import br.unifei.imc.lojaprodutos.models.Cidade;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
