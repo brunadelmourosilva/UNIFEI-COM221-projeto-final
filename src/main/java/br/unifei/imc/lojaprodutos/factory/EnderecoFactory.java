@@ -3,7 +3,6 @@ package br.unifei.imc.lojaprodutos.factory;
 import br.unifei.imc.lojaprodutos.models.Cidade;
 import br.unifei.imc.lojaprodutos.models.Cliente;
 import br.unifei.imc.lojaprodutos.models.Endereco;
-import br.unifei.imc.lojaprodutos.models.Estado;
 
 import java.util.List;
 

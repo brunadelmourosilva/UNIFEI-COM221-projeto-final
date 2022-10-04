@@ -1,9 +1,7 @@
 package br.unifei.imc.lojaprodutos.factory;
 
 import br.unifei.imc.lojaprodutos.models.Categoria;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.validation.Valid;
 import java.util.List;
 
 public class CategoriaFactory {

@@ -2,7 +2,6 @@ package br.unifei.imc.lojaprodutos.factory;
 
 import br.unifei.imc.lojaprodutos.models.Categoria;
 import br.unifei.imc.lojaprodutos.models.Produto;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

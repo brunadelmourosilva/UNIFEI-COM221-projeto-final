@@ -1,6 +1,5 @@
 package br.unifei.imc.lojaprodutos.factory;
 
-import br.unifei.imc.lojaprodutos.models.Cidade;
 import br.unifei.imc.lojaprodutos.models.Estado;
 
 import java.util.List;
