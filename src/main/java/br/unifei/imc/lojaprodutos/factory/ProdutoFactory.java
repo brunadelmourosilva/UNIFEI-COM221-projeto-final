@@ -23,20 +23,20 @@ public class ProdutoFactory {
 
         produtos.addAll(
           List.of(
-                  Produto.builder().nome("Celular Xiaomi Mi 10 Lite").categorias(List.of(informatica, eletronicos)).preco(2500d).estoque(100).imageUrl(bucketBaseUrlProd + "1.jpg").build(),
-                  Produto.builder().nome("Celular iPhone 13 Pro Max").categorias(List.of(informatica, eletronicos)).preco(8000d).estoque(15).imageUrl(bucketBaseUrlProd + "2.jpg").build(),
-                  Produto.builder().nome("Mouse Multilaser Pro 10").categorias(List.of(informatica, eletronicos)).preco(50d).estoque(2000).imageUrl(bucketBaseUrlProd + "3.jpg").build(),
-                  Produto.builder().nome("Teclado Razer BlackWidow V3").categorias(List.of(informatica, eletronicos)).preco(500d).estoque(40).imageUrl(bucketBaseUrlProd + "4.jpg").build(),
-                  Produto.builder().nome("Sofá CasaBoa 3 Lugares").categorias(List.of(mobilia)).preco(3000d).estoque(70).imageUrl(bucketBaseUrlProd + "5.jpg").build(),
-                  Produto.builder().nome("Travesseiro Ortobom Espuma Macia").categorias(List.of(camaMesaBanho)).preco(200d).estoque(1000).imageUrl(bucketBaseUrlProd + "6.jpg").build(),
-                  Produto.builder().nome("Abajur TopLuzes 300 Lumens").categorias(List.of(mobilia, decoracao)).preco(65d).estoque(120).imageUrl(bucketBaseUrlProd + "7.jpg").build(),
-                  Produto.builder().nome("Kit de Jardinagem Floris").categorias(List.of(jardinagem)).preco(1100d).estoque(20).imageUrl(bucketBaseUrlProd + "8.jpg").build(),
-                  Produto.builder().nome("Bota Emborrachada MaxJardim").categorias(List.of(jardinagem)).preco(50d).estoque(100).imageUrl(bucketBaseUrlProd + "9.jpg").build(),
-                  Produto.builder().nome("Vaso Suspenso Floris").categorias(List.of(jardinagem, decoracao)).preco(200d).estoque(35).imageUrl(bucketBaseUrlProd + "10.jpg").build(),
-                  Produto.builder().nome("Televisão 55 Polegadas LG").categorias(List.of(eletronicos)).preco(4000d).estoque(10).imageUrl(bucketBaseUrlProd + "11.jpg").build(),
-                  Produto.builder().nome("Macbook Air 13 Apple").categorias(List.of(informatica, eletronicos)).preco(8000d).estoque(5).imageUrl(bucketBaseUrlProd + "12.jpg").build(),
-                  Produto.builder().nome("Lustre Prateado Shine").categorias(List.of(decoracao)).preco(5000d).estoque(10).imageUrl(bucketBaseUrlProd + "13.jpg").build(),
-                  Produto.builder().nome("Banqueta Giratória Confort").categorias(List.of(mobilia)).preco(100d).estoque(300).imageUrl(bucketBaseUrlProd + "14.jpg").build()
+                  Produto.builder().name("Celular Xiaomi Mi 10 Lite").categories(List.of(informatica, eletronicos)).price(2500d).image(bucketBaseUrlProd + "1.jpg").build(),
+                  Produto.builder().name("Celular iPhone 13 Pro Max").categories(List.of(informatica, eletronicos)).price(8000d).image(bucketBaseUrlProd + "2.jpg").build(),
+                  Produto.builder().name("Mouse Multilaser Pro 10").categories(List.of(informatica, eletronicos)).price(50d).image(bucketBaseUrlProd + "3.jpg").build(),
+                  Produto.builder().name("Teclado Razer BlackWidow V3").categories(List.of(informatica, eletronicos)).price(500d).image(bucketBaseUrlProd + "4.jpg").build(),
+                  Produto.builder().name("Sofá CasaBoa 3 Lugares").categories(List.of(mobilia)).price(3000d).image(bucketBaseUrlProd + "5.jpg").build(),
+                  Produto.builder().name("Travesseiro Ortobom Espuma Macia").categories(List.of(camaMesaBanho)).price(200d).image(bucketBaseUrlProd + "6.jpg").build(),
+                  Produto.builder().name("Abajur TopLuzes 300 Lumens").categories(List.of(mobilia, decoracao)).price(65d).image(bucketBaseUrlProd + "7.jpg").build(),
+                  Produto.builder().name("Kit de Jardinagem Floris").categories(List.of(jardinagem)).price(1100d).image(bucketBaseUrlProd + "8.jpg").build(),
+                  Produto.builder().name("Bota Emborrachada MaxJardim").categories(List.of(jardinagem)).price(50d).image(bucketBaseUrlProd + "9.jpg").build(),
+                  Produto.builder().name("Vaso Suspenso Floris").categories(List.of(jardinagem, decoracao)).price(200d).image(bucketBaseUrlProd + "10.jpg").build(),
+                  Produto.builder().name("Televisão 55 Polegadas LG").categories(List.of(eletronicos)).price(4000d).image(bucketBaseUrlProd + "11.jpg").build(),
+                  Produto.builder().name("Macbook Air 13 Apple").categories(List.of(informatica, eletronicos)).price(8000d).image(bucketBaseUrlProd + "12.jpg").build(),
+                  Produto.builder().name("Lustre Prateado Shine").categories(List.of(decoracao)).price(5000d).image(bucketBaseUrlProd + "13.jpg").build(),
+                  Produto.builder().name("Banqueta Giratória Confort").categories(List.of(mobilia)).price(100d).image(bucketBaseUrlProd + "14.jpg").build()
           )
         );
 

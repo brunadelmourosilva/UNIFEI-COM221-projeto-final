@@ -1,13 +1,11 @@
 package br.unifei.imc.lojaprodutos.models;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -25,13 +23,13 @@ public class Cidade {
     private Integer id;
 
     @Column(name = "NOME_CIDADE")
-    private String nome;
+    private String name;
 
-    @OneToMany(mappedBy = "cidade")
-    private List<Endereco> enderecos;
+    @OneToMany(mappedBy = "city")
+    private List<Endereco> addresses;
 
     @ManyToOne
     @JoinColumn(name = "RF_ESTADO")
-    private Estado estado;
+    private Estado state;
 
 }

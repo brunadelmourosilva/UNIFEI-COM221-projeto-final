@@ -9,9 +9,9 @@ public class EstadoFactory {
     public static List<Estado> createEstados(){
 
         return List.of(
-                Estado.builder().nome("São Paulo").build(),
-                Estado.builder().nome("Minas Gerais").build(),
-                Estado.builder().nome("Rio de Janeiro").build()
+                Estado.builder().name("São Paulo").build(),
+                Estado.builder().name("Minas Gerais").build(),
+                Estado.builder().name("Rio de Janeiro").build()
         );
     }
 }

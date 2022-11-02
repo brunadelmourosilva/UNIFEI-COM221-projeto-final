@@ -1,7 +1,6 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,28 +23,29 @@ public class Endereco {
     private Integer id;
 
     @Column(name = "RUA")
-    private String rua;
+    private String street;
 
     @Column(name = "NUMERO")
-    private String numero;
+    private String number;
 
     @Column(name = "COMPLEMENTO")
-    private String complemento;
+    private String complement;
 
     @Column(name = "BAIRRO")
-    private String bairro;
+    private String neighborhood;
 
+    @JsonIgnore
     @Column(name = "CEP")
-    private String cep;
+    private String zipCode;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "RF_CLIENTE")
-    private Cliente cliente;
+    private Cliente customer;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "RF_CIDADE")
-    private Cidade cidade;
+    private Cidade city;
 
 }

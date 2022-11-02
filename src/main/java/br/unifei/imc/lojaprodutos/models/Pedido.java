@@ -1,14 +1,12 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,11 +28,11 @@ public class Pedido {
     @Column(name = "DATA_PEDIDO")
     private Date date;
 
-    @ManyToMany(mappedBy = "pedidos")
-    private List<Produto> produtos;
+    @ManyToMany(mappedBy = "orders")
+    private List<Produto> products;
 
     @ManyToOne
     @JoinColumn(name = "RF_CLIENTE")
-    private Cliente cliente;
+    private Cliente customer;
 
 }

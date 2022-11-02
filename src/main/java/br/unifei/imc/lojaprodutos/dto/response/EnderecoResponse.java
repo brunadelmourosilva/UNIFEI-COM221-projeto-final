@@ -11,15 +11,14 @@ public class EnderecoResponse {
 
     private Integer id;
 
-    private String rua;
+    private String street;
 
-    private String numero;
+    private String number;
 
-    private String complemento;
+    private String complement;
 
-    private String bairro;
+    private String neighborhood;
 
-    private String cep;
+    private CidadeResponse city;
 
-    private CidadeResponse cidade;
 }

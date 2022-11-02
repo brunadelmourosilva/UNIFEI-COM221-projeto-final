@@ -11,7 +11,8 @@ public class CategoriaResponse {
 
     private Integer id;
 
-    private String nome;
+    private String name;
 
-    private String imageUrl;
+    private String image;
+
 }

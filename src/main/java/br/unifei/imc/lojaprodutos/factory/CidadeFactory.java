@@ -14,9 +14,9 @@ public class CidadeFactory {
         Estado rj = estados.get(2);
 
         return List.of(
-                Cidade.builder().nome("Campinas").estado(sp).build(),
-                Cidade.builder().nome("Itajubá").estado(mg).build(),
-                Cidade.builder().nome("Rezende").estado(rj).build()
+                Cidade.builder().name("Campinas").state(sp).build(),
+                Cidade.builder().name("Itajubá").state(mg).build(),
+                Cidade.builder().name("Rezende").state(rj).build()
         );
     }
 

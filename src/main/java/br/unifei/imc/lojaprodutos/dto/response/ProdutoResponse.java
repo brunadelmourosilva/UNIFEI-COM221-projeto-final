@@ -11,11 +11,9 @@ public class ProdutoResponse {
 
     private Integer id;
 
-    private String nome;
+    private String name;
 
-    private Integer estoque;
+    private Double price;
 
-    private Double preco;
-
-    private String imageUrl;
+    private String image;
 }

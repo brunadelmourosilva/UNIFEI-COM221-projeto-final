@@ -20,16 +20,16 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String nome;
+    private String name;
 
     private String email;
 
-    private String imageUrl;
+    private String image;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Endereco> enderecos;
+    @OneToMany(mappedBy = "customer")
+    private List<Endereco> addresses;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Pedido> pedidos;
+    @OneToMany(mappedBy = "customer")
+    private List<Pedido> orders;
 
 }

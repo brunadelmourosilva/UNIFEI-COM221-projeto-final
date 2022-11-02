@@ -11,8 +11,8 @@ public class EnderecoFactory {
     public static List<Endereco> createEnderecos(Cliente cliente, Cidade cidade){
 
         return List.of(
-                Endereco.builder().cep("37500208").rua("Rua das Flores").bairro("Centro").cliente(cliente).numero("387").complemento("Casa").cidade(cidade).build(),
-                Endereco.builder().cep("28030948").rua("Rua Jardins").bairro("Centro").cliente(cliente).numero("213").complemento("Apartamento").cidade(cidade).build()
+                Endereco.builder().zipCode("37500208").street("Rua das Flores").neighborhood("Centro").customer(cliente).number("387").complement("Casa").city(cidade).build(),
+                Endereco.builder().zipCode("28030948").street("Rua Jardins").neighborhood("Centro").customer(cliente).number("213").complement("Apartamento").city(cidade).build()
         );
     }
 }
