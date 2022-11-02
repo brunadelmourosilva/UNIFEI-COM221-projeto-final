@@ -3,6 +3,7 @@ package br.unifei.imc.lojaprodutos;
 import br.unifei.imc.lojaprodutos.factory.*;
 import br.unifei.imc.lojaprodutos.models.*;
 import br.unifei.imc.lojaprodutos.repositories.*;
+import br.unifei.imc.lojaprodutos.senders.FinishOrderSender;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,7 @@ public class LojaprodutosApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	private ClienteRepository clienteRepository;
 	private EnderecoRepository enderecoRepository;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(LojaprodutosApplication.class, args);
