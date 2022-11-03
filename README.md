@@ -2,6 +2,8 @@
 
 TODO
 
+todo: salvar cliente e depois usar o id do mesmo para salvar a lista de endereços, pois endereço tem ref. de cliente
+
 producer
 
 * definir objeto
