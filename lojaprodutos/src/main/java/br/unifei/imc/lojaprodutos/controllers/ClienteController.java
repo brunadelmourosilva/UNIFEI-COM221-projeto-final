@@ -3,6 +3,7 @@ package br.unifei.imc.lojaprodutos.controllers;
 import br.unifei.imc.lojaprodutos.dto.request.ClienteRequest;
 import br.unifei.imc.lojaprodutos.dto.response.ClienteResponse;
 import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
+import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
 import br.unifei.imc.lojaprodutos.models.Cliente;
 import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Produto;
@@ -39,5 +40,13 @@ public class ClienteController {
         var clienteResponse = clienteService.insertCustomer(clienteRequest);
 
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/pedidos/{id}")
+    @Operation(summary = "Retorna todos os pedidos de um cliente")
+    public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer id) {
+        var pedidos = clienteService.findAllPedidosByClienteId(id);
+
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 }
