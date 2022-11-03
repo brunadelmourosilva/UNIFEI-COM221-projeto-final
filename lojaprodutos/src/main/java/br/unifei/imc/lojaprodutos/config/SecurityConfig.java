@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
         .antMatchers("/login", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-        .antMatchers("/categorias", "/produtos/**", "/clientes/**").hasRole("USER")
+        .antMatchers("/categorias", "/produtos/**", "/clientes/**", "/estados", "/cidades").hasRole("USER")
         .anyRequest().authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(clienteRepository, authenticationManager(), jwtUtil));
