@@ -17,8 +17,8 @@ public class CidadeService {
 
     private ModelMapper modelMapper;
 
-    public List<CidadeResponse> getAllCities() {
-        var cities = cidadeRepository.findAll();
+    public List<CidadeResponse> getAllCitiesByState(Integer id) {
+        var cities = cidadeRepository.findAllCitiesByState(id);
 
         return cities.stream()
                 .map(citie -> modelMapper.map(citie, CidadeResponse.class))

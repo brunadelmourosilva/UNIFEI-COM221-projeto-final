@@ -14,7 +14,7 @@ public class ClienteFactory {
         return Cliente.builder()
         .name("Marcelo Leite")
         .email("marcelo@gmail.com")
-        .senha(passwordEncoder.encode("123"))
+        .password(passwordEncoder.encode("123"))
         .build();
     }
 }
