@@ -9,6 +9,7 @@ import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
 import br.unifei.imc.lojaprodutos.repositories.EnderecoRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +20,12 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
+
     private EnderecoRepository enderecoRepository;
+
     private ModelMapper modelMapper;
+
+    private PasswordEncoder encoder;
 
     public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
         var enderecos = enderecoRepository.findAllAddressesByCustomerId(id);
@@ -31,7 +36,9 @@ public class ClienteService {
     }
 
     public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
-       var cliente = modelMapper.map(clienteRequest, Cliente.class);
+
+        var cliente = modelMapper.map(clienteRequest, Cliente.class);
+        cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
 
         var clienteSalvo = clienteRepository.save(cliente);
 

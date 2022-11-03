@@ -1,15 +1,15 @@
-package br.unifei.imc.lojaprodutos.dto.response;
+package br.unifei.imc.lojaprodutos.dto.request;
 
+import br.unifei.imc.lojaprodutos.models.Cidade;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class EnderecoResponse {
 
-    private Integer id;
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class EnderecoRequest {
 
     private String street;
 
@@ -21,6 +21,6 @@ public class EnderecoResponse {
 
     private String zipCode;
 
-    private CidadeResponse city;
+    private CidadeRequest city;
 
 }
