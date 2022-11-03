@@ -1,14 +1,17 @@
-package br.unifei.imc.lojaprodutos.dto.response;
+package br.unifei.imc.lojaprodutos.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class EstadoResponse {
+public class CidadeRequest {
 
     private Integer id;
+
     private String name;
+
+    private EstadoRequest state;
 }

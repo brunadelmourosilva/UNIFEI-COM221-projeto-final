@@ -12,7 +12,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class Cliente {
 
     @JsonIgnore
     @Column(name = "SENHA")
-    private String senha;
+    private String password;
 
     @JsonIgnore
     @OneToMany(mappedBy = "customer")

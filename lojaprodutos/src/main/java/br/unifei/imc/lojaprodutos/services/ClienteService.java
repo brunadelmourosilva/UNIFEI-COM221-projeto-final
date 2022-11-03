@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 
 import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,8 +28,12 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
+
     private EnderecoRepository enderecoRepository;
+
     private ModelMapper modelMapper;
+
+    private PasswordEncoder encoder;
 
     public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
         var enderecos = enderecoRepository.findAllAddressesByCustomerId(id);
@@ -39,7 +44,9 @@ public class ClienteService {
     }
 
     public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
-       var cliente = modelMapper.map(clienteRequest, Cliente.class);
+
+        var cliente = modelMapper.map(clienteRequest, Cliente.class);
+        cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
 
         var clienteSalvo = clienteRepository.save(cliente);
 
