@@ -1,6 +1,9 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
+import br.unifei.imc.lojaprodutos.dto.request.ClienteRequest;
+import br.unifei.imc.lojaprodutos.dto.response.ClienteResponse;
 import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
+import br.unifei.imc.lojaprodutos.models.Cliente;
 import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.services.ClienteService;
@@ -28,5 +31,13 @@ public class ClienteController {
         var enderecos = clienteService.getAllAddressesByCustomer(id);
 
         return new ResponseEntity<>(enderecos, HttpStatus.OK);
+    }
+
+    @PostMapping
+    @Operation(summary = "Realiza o cadastro de um cliente")
+    public ResponseEntity<ClienteResponse> insertCustomer(@RequestBody ClienteRequest clienteRequest) {
+        var clienteResponse = clienteService.insertCustomer(clienteRequest);
+
+        return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
     }
 }
