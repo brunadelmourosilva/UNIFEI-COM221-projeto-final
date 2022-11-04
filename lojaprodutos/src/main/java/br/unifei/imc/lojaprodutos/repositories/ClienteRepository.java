@@ -17,15 +17,21 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     Cliente findByEmail(String email);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM TB_PEDIDO tp WHERE tp.RF_CLIENTE = ?1")
+    @Query(value = "FROM Pedido p WHERE p.customer.id = ?1")
     Optional<List<Pedido>> findAllPedidosByClienteId(Integer id);
-
-    @Query(nativeQuery = true,
-    value = "SELECT tprod.* FROM TB_PEDIDO tp " + 
-            "INNER JOIN TB_PRODUTO_PEDIDO tpp ON tpp.RF_PEDIDO = tp.PEDIDO_ID " +
-            "INNER JOIN TB_PRODUTO tprod ON tprod.PRODUTO_ID = tpp.RF_PRODUTO " + 
-            "WHERE tp.RF_CLIENTE = 1 AND " +
-            "tp.PEDIDO_ID = ?2")
+    
+    @Query(
+        value = "SELECT prod FROM Pedido p " +
+                "JOIN p.products prod " +
+                "WHERE p.customer.id = ?1 AND " +
+                "p.id = ?2")
     Optional<List<Produto>> findAllProdutosByClienteAndPedidoId(Integer clienteId, Integer pedidoId);
     
 }
+
+    // nativeQuery = true,
+    // value = "SELECT tprod.URL_IMAGEM, tprod.NOME_PRODUTO, tprod.PRECO FROM TB_PEDIDO tp " + 
+    //         "INNER JOIN TB_PRODUTO_PEDIDO tpp ON tpp.RF_PEDIDO = tp.PEDIDO_ID " +
+    //         "INNER JOIN TB_PRODUTO tprod ON tprod.PRODUTO_ID = tpp.RF_PRODUTO " + 
+    //         "WHERE tp.RF_CLIENTE = ?1 AND " +
+    //         "tp.PEDIDO_ID = ?2")

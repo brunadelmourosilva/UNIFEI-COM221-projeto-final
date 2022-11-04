@@ -9,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -24,6 +27,7 @@ public class LojaprodutosApplication implements CommandLineRunner {
 	private CartaoRepository cartaoRepository;
 	private RoleRepository roleRepository;
 	private PasswordEncoder passwordEncoder;
+	private PedidoRepository pedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LojaprodutosApplication.class, args);
@@ -47,6 +51,16 @@ public class LojaprodutosApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(cidades);
 		clienteRepository.save(cliente);
 		enderecoRepository.saveAll(enderecos);
+
+		//TODO: CORRIGIR ISSO
+
+		Pedido pedido = new Pedido(null, Date.from(Instant.now()), cliente, new ArrayList<>());
+
+		for(int i=0; i<3; i++){
+			pedido.getProducts().add(produtos.get(i));
+		}
+		
+		pedidoRepository.save(pedido);
 		cartaoRepository.saveAll(cartoes);
 
 		roleRepository.saveAll(List.of(new Role(null, "ROLE_USER", cliente)));

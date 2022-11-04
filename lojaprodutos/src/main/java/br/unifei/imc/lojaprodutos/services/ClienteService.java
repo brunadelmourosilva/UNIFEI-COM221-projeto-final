@@ -10,9 +10,11 @@ import br.unifei.imc.lojaprodutos.models.Pedido;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
 import br.unifei.imc.lojaprodutos.repositories.EnderecoRepository;
+import br.unifei.imc.lojaprodutos.repositories.PedidoRepository;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.ObjectNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,16 +52,12 @@ public class ClienteService {
 
         var clienteSalvo = clienteRepository.save(cliente);
 
-        var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
-
-        var enderecosResponse = enderecoService.insertAddresses(clienteRequest, clienteSalvo);
-        clienteResponse.setAddresses(enderecosResponse);
-
-        return clienteResponse;
+        return modelMapper.map(clienteSalvo, ClienteResponse.class);
     }
 
     public List<PedidoResponse> findAllPedidosByClienteId(Integer id){
-        var cliente = clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não encontrado"));
+
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não encontrado"));
 
         List<PedidoResponse> pedidosResponse = new ArrayList<>();
 

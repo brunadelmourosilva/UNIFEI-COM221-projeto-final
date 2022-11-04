@@ -4,19 +4,23 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "TB_PEDIDO")
-
 public class Pedido {
 
     @Id
@@ -28,11 +32,15 @@ public class Pedido {
     @Column(name = "DATA_PEDIDO")
     private Date date;
 
-    @ManyToMany(mappedBy = "orders")
-    private List<Produto> products;
-
     @ManyToOne
     @JoinColumn(name = "RF_CLIENTE")
     private Cliente customer;
+
+    @ManyToMany
+    @JoinTable(
+        name = "TB_PRODUTO_PEDIDO",
+        joinColumns = @JoinColumn(name = "RF_PEDIDO"),
+        inverseJoinColumns = @JoinColumn(name = "RF_PRODUTO"))
+    private List<Produto> products;
 
 }
