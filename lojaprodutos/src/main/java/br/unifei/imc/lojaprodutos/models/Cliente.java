@@ -41,6 +41,9 @@ public class Cliente {
     @Column(name = "SENHA")
     private String password;
 
+    @OneToOne(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Cartao cartao;
+
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Endereco> addresses;

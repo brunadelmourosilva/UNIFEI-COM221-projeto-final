@@ -1,6 +1,8 @@
 
 
 TODO
+todo: tratar todas as exceptions e add exception personalizada
+todo: converter classes para inglês
 
 producer
 

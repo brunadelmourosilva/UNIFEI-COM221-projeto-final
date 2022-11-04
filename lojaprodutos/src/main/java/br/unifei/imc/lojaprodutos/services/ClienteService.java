@@ -6,7 +6,6 @@ import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
 import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
 import br.unifei.imc.lojaprodutos.dto.response.ProdutoResponse;
 import br.unifei.imc.lojaprodutos.models.Cliente;
-import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Pedido;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
@@ -15,6 +14,7 @@ import br.unifei.imc.lojaprodutos.repositories.PedidoRepository;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.ObjectNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,24 +27,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClienteService {
 
+    private EnderecoService enderecoService;
     private ClienteRepository clienteRepository;
-
-    private EnderecoRepository enderecoRepository;
 
     private ModelMapper modelMapper;
 
     private PasswordEncoder encoder;
 
     public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
-        var enderecos = enderecoRepository.findAllAddressesByCustomerId(id);
+        var enderecos = enderecoService.getAllAddressesByCustomerId(id);
 
         return enderecos.stream()
                 .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
                 .collect(Collectors.toList());
     }
 
-    public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
+    public Cliente getCustomerById(Integer id) {
+        return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Usuário não cadastrado."));
+    }
 
+    public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
         var cliente = modelMapper.map(clienteRequest, Cliente.class);
         cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
 
