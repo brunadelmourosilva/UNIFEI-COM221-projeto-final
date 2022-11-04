@@ -1,8 +1,8 @@
 
 
 TODO
-
-todo: salvar cliente e depois usar o id do mesmo para salvar a lista de endereços, pois endereço tem ref. de cliente
+todo: tratar todas as exceptions e add exception personalizada
+todo: converter classes para inglês
 
 producer
 
