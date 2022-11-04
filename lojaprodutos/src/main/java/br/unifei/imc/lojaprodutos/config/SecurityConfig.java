@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.authorizeRequests()
-        .antMatchers("/login", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+        .antMatchers("/login", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/estados/**", "/cidades/**").permitAll()
         .antMatchers("/categorias", "/produtos/**", "/clientes/**", "/estados", "/cidades").hasRole("USER")
         .anyRequest().authenticated();
 

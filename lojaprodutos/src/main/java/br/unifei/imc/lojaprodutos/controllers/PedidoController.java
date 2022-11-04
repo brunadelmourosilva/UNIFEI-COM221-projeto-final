@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 public class PedidoController {
 
     private ClienteService clienteService;
-    private PedidoService pedidoService;
+    //private PedidoService pedidoService;
 
     @GetMapping(value = "/pedidos/cliente/{id}")
     @Operation(summary = "Retorna todos os pedidos de um cliente")
