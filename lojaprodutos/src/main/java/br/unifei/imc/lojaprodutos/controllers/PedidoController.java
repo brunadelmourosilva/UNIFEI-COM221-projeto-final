@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
+import br.unifei.imc.lojaprodutos.models.FinalizaPedido;
 import br.unifei.imc.lojaprodutos.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -24,6 +26,7 @@ import lombok.AllArgsConstructor;
 public class PedidoController {
 
     private ClienteService clienteService;
+    private PedidoService pedidoService;
 
     @GetMapping(value = "/pedidos/cliente/{id}")
     @Operation(summary = "Retorna todos os pedidos de um cliente")
@@ -31,6 +34,13 @@ public class PedidoController {
         var pedidos = clienteService.findAllPedidosByClienteId(id);
 
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pedidos/finaliza")
+    @Operation(summary = "Finaliza um pedido")
+    public String finalizaPedido(@RequestBody FinalizaPedido finalizaPedido){
+
+        return "Esse endpoint ainda não está finalizado, mas vc pode seguir o exemplo do body para mapear no front";
     }
 
 }
