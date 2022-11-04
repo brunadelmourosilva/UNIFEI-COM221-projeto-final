@@ -3,7 +3,9 @@ package br.unifei.imc.lojaprodutos.models;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,10 +13,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "TB_PRODUTO")
-
 public class Produto {
 
     @Id
@@ -38,7 +40,7 @@ public class Produto {
             inverseJoinColumns = @JoinColumn(name = "RF_CATEGORIA"))
     private List<Categoria> categories;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "TB_PRODUTO_PEDIDO",
             joinColumns = @JoinColumn(name = "RF_PRODUTO"),
