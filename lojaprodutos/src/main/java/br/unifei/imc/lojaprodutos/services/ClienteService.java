@@ -6,12 +6,10 @@ import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
 import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
 import br.unifei.imc.lojaprodutos.dto.response.ProdutoResponse;
 import br.unifei.imc.lojaprodutos.models.Cliente;
-import br.unifei.imc.lojaprodutos.models.Endereco;
 import br.unifei.imc.lojaprodutos.models.Pedido;
 import br.unifei.imc.lojaprodutos.models.Produto;
 import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
 import br.unifei.imc.lojaprodutos.repositories.EnderecoRepository;
-import br.unifei.imc.lojaprodutos.repositories.PedidoRepository;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.ObjectNotFoundException;
@@ -27,6 +25,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClienteService {
 
+    private EnderecoService enderecoService;
     private ClienteRepository clienteRepository;
 
     private EnderecoRepository enderecoRepository;
@@ -36,7 +35,7 @@ public class ClienteService {
     private PasswordEncoder encoder;
 
     public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
-        var enderecos = enderecoRepository.findAllAddressesByCustomerId(id);
+        var enderecos = enderecoService.getAllAddressesByCustomerId(id);
 
         return enderecos.stream()
                 .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
@@ -44,13 +43,17 @@ public class ClienteService {
     }
 
     public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
-
         var cliente = modelMapper.map(clienteRequest, Cliente.class);
         cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
 
         var clienteSalvo = clienteRepository.save(cliente);
 
-        return modelMapper.map(clienteSalvo, ClienteResponse.class);
+        var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
+
+        var enderecosResponse = enderecoService.insertAddresses(clienteRequest, clienteSalvo);
+        clienteResponse.setAddresses(enderecosResponse);
+
+        return clienteResponse;
     }
 
     public List<PedidoResponse> findAllPedidosByClienteId(Integer id){
