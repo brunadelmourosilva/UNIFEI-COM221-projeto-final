@@ -28,8 +28,6 @@ public class ClienteService {
     private EnderecoService enderecoService;
     private ClienteRepository clienteRepository;
 
-    private EnderecoRepository enderecoRepository;
-
     private ModelMapper modelMapper;
 
     private PasswordEncoder encoder;
@@ -40,6 +38,10 @@ public class ClienteService {
         return enderecos.stream()
                 .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    public Cliente getCustomerById(Integer id) {
+        return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Usuário não cadastrado."));
     }
 
     public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
@@ -57,8 +59,7 @@ public class ClienteService {
     }
 
     public List<PedidoResponse> findAllPedidosByClienteId(Integer id){
-
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não encontrado"));
+        var cliente = clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não encontrado"));
 
         List<PedidoResponse> pedidosResponse = new ArrayList<>();
 

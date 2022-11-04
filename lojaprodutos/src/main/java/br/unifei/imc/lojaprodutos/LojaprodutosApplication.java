@@ -21,6 +21,7 @@ public class LojaprodutosApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	private ClienteRepository clienteRepository;
 	private EnderecoRepository enderecoRepository;
+	private CartaoRepository cartaoRepository;
 	private RoleRepository roleRepository;
 	private PasswordEncoder passwordEncoder;
 
@@ -38,6 +39,7 @@ public class LojaprodutosApplication implements CommandLineRunner {
 		List<Cidade> cidades = CidadeFactory.createCidades(estados);
 		Cliente cliente = clienteFactory.createCliente();
 		List<Endereco> enderecos = EnderecoFactory.createEnderecos(cliente, cidades.get(0));
+		List<Cartao> cartoes = CartaoFactory.createCartoes(cliente);
 
 		categoriaRepository.saveAll(categorias);
 		produtoRepository.saveAll(produtos);
@@ -45,7 +47,8 @@ public class LojaprodutosApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(cidades);
 		clienteRepository.save(cliente);
 		enderecoRepository.saveAll(enderecos);
-		
+		cartaoRepository.saveAll(cartoes);
+
 		roleRepository.saveAll(List.of(new Role(null, "ROLE_USER", cliente)));
 
 	}
