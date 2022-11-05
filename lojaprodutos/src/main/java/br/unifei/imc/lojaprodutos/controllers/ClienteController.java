@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
+import br.unifei.imc.lojaprodutos.dto.request.ClienteCadastroRequest;
 import br.unifei.imc.lojaprodutos.dto.request.ClienteRequest;
 import br.unifei.imc.lojaprodutos.dto.response.ClienteResponse;
 import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
@@ -47,8 +48,8 @@ public class ClienteController {
     @PostMapping
     @Operation(summary = "Realiza o cadastro de um cliente")
     @Transactional
-    public ResponseEntity<ClienteResponse> insertCustomer(@RequestBody ClienteRequest clienteRequest) {
-        var clienteResponse = clienteService.insertCustomer(clienteRequest);
+    public ResponseEntity<ClienteResponse> insertCustomer(@RequestBody ClienteCadastroRequest clienteCadastroRequest) {
+        var clienteResponse = clienteService.insertCustomer(clienteCadastroRequest);
 
         return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
     }

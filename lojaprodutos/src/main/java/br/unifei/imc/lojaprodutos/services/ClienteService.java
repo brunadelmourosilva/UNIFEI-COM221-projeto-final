@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.services;
 
+import br.unifei.imc.lojaprodutos.dto.request.ClienteCadastroRequest;
 import br.unifei.imc.lojaprodutos.dto.request.ClienteRequest;
 import br.unifei.imc.lojaprodutos.dto.response.ClienteResponse;
 import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
@@ -48,9 +49,9 @@ public class ClienteService {
         return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não cadastrado."));
     }
 
-    public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
-        var cliente = modelMapper.map(clienteRequest, Cliente.class);
-        cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
+    public ClienteResponse insertCustomer(ClienteCadastroRequest clienteCadastroRequest) {
+        var cliente = modelMapper.map(clienteCadastroRequest, Cliente.class);
+        cliente.setPassword(encoder.encode(clienteCadastroRequest.getPassword()));
 
         var clienteSalvo = clienteRepository.save(cliente);
 
@@ -58,7 +59,7 @@ public class ClienteService {
 
         var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
 
-        var enderecosResponse = enderecoService.insertAddresses(clienteRequest, clienteSalvo);
+        var enderecosResponse = enderecoService.insertAddresses(clienteCadastroRequest, clienteSalvo);
         clienteResponse.setAddresses(enderecosResponse);
 
         return clienteResponse;

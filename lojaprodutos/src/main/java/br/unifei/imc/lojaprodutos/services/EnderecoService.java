@@ -1,5 +1,6 @@
 package br.unifei.imc.lojaprodutos.services;
 
+import br.unifei.imc.lojaprodutos.dto.request.ClienteCadastroRequest;
 import br.unifei.imc.lojaprodutos.dto.request.ClienteRequest;
 import br.unifei.imc.lojaprodutos.dto.response.ClienteResponse;
 import br.unifei.imc.lojaprodutos.dto.response.EnderecoResponse;
@@ -21,9 +22,9 @@ public class EnderecoService {
 
     private EnderecoRepository enderecoRepository;
 
-    public List<EnderecoResponse> insertAddresses(ClienteRequest clienteRequest, Cliente cliente) {
+    public List<EnderecoResponse> insertAddresses(ClienteCadastroRequest clienteCadastroRequest, Cliente cliente) {
 
-        var enderecos = clienteRequest.getAddresses()
+        var enderecos = clienteCadastroRequest.getAddresses()
                 .stream()
                 .map(endereco -> modelMapper.map(endereco, Endereco.class))
                 .collect(Collectors.toList());
