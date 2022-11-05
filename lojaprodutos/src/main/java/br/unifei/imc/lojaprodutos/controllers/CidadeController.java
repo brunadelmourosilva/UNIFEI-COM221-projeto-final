@@ -20,10 +20,10 @@ public class CidadeController {
 
     private CidadeService cidadeService;
 
-    @GetMapping(value = "/estado/{id}")
-    @Operation(summary = "Retorna todos as cidades cadastradas")
-    public ResponseEntity<List<CidadeResponse>> getAllCitiesByState(@PathVariable Integer id) {
-        var cities = cidadeService.getAllCitiesByState(id);
+    @GetMapping(value = "/estado/{estadoId}")
+    @Operation(summary = "Retorna todos as cidades de um estado")
+    public ResponseEntity<List<CidadeResponse>> getAllCitiesByState(@PathVariable Integer estadoId) {
+        var cities = cidadeService.getAllCitiesByState(estadoId);
 
         return new ResponseEntity<>(cities, HttpStatus.OK);
     }
