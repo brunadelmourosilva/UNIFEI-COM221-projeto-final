@@ -1,6 +1,5 @@
 package br.unifei.imc.lojaprodutos.dto.request;
 
-import br.unifei.imc.lojaprodutos.models.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

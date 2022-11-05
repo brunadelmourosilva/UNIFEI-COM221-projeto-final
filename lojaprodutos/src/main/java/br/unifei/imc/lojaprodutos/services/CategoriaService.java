@@ -1,7 +1,6 @@
 package br.unifei.imc.lojaprodutos.services;
 
 import br.unifei.imc.lojaprodutos.dto.response.CategoriaResponse;
-import br.unifei.imc.lojaprodutos.models.Categoria;
 import br.unifei.imc.lojaprodutos.repositories.CategoriaRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

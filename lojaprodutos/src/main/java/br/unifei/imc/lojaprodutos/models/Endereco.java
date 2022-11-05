@@ -1,10 +1,13 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -47,5 +50,8 @@ public class Endereco {
     @ManyToOne
     @JoinColumn(name = "RF_CIDADE")
     private Cidade city;
+
+    @OneToMany(mappedBy = "endereco")
+    private List<Pedido> pedido;
 
 }

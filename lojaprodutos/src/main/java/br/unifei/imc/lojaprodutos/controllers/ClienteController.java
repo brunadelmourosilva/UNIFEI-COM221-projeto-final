@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequestMapping("/clientes")
 @AllArgsConstructor
@@ -44,6 +46,7 @@ public class ClienteController {
 
     @PostMapping
     @Operation(summary = "Realiza o cadastro de um cliente")
+    @Transactional
     public ResponseEntity<ClienteResponse> insertCustomer(@RequestBody ClienteRequest clienteRequest) {
         var clienteResponse = clienteService.insertCustomer(clienteRequest);
 

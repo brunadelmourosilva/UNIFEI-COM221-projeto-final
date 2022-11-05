@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class EnderecoRequest {
 
+    private Integer id; //todo tirar depois
+
     private String street;
 
     private String number;

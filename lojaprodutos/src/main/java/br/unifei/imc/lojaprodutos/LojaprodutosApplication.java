@@ -54,7 +54,7 @@ public class LojaprodutosApplication implements CommandLineRunner {
 
 		//TODO: CORRIGIR ISSO
 
-		Pedido pedido = new Pedido(null, Date.from(Instant.now()), cliente, new ArrayList<>());
+		Pedido pedido = new Pedido(null, Date.from(Instant.now()), cliente, new ArrayList<>(), enderecos.get(0), 3000d, 1);
 
 		for(int i=0; i<3; i++){
 			pedido.getProducts().add(produtos.get(i));

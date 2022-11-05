@@ -43,4 +43,15 @@ public class Pedido {
         inverseJoinColumns = @JoinColumn(name = "RF_PRODUTO"))
     private List<Produto> products;
 
+    @ManyToOne
+    @JoinColumn(name = "RF_ENDERECO")
+    private Endereco endereco;
+
+
+    @Column(name = "VALOR_TOTAL")
+    private Double valorTotal;
+
+    @Column(name = "TIPO_PAGAMENTO")
+    private Integer payment;
+
 }

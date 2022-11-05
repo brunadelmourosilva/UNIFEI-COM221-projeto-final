@@ -8,9 +8,11 @@ import br.unifei.imc.lojaprodutos.dto.response.ProdutoResponse;
 import br.unifei.imc.lojaprodutos.models.Cliente;
 import br.unifei.imc.lojaprodutos.models.Pedido;
 import br.unifei.imc.lojaprodutos.models.Produto;
+import br.unifei.imc.lojaprodutos.models.Role;
 import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
 import br.unifei.imc.lojaprodutos.repositories.EnderecoRepository;
 import br.unifei.imc.lojaprodutos.repositories.PedidoRepository;
+import br.unifei.imc.lojaprodutos.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.ObjectNotFoundException;
@@ -29,7 +31,7 @@ public class ClienteService {
 
     private EnderecoService enderecoService;
     private ClienteRepository clienteRepository;
-
+    private RoleRepository roleRepository;
     private ModelMapper modelMapper;
 
     private PasswordEncoder encoder;
@@ -43,7 +45,7 @@ public class ClienteService {
     }
 
     public Cliente getCustomerById(Integer id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Usuário não cadastrado."));
+        return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1, "Cliente não cadastrado."));
     }
 
     public ClienteResponse insertCustomer(ClienteRequest clienteRequest) {
@@ -51,6 +53,8 @@ public class ClienteService {
         cliente.setPassword(encoder.encode(clienteRequest.getPassword()));
 
         var clienteSalvo = clienteRepository.save(cliente);
+
+        roleRepository.save(new Role(null, "ROLE_USER", clienteSalvo));
 
         var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
 
@@ -73,7 +77,7 @@ public class ClienteService {
 
             List<Produto> produtos = clienteRepository.findAllProdutosByClienteAndPedidoId(id, pedido.getId()).orElseThrow(() -> new ObjectNotFoundException(1, "Não foram encontrados produtos para um dos pedidos"));
 
-            pedidosResponse.add(new PedidoResponse(pedido.getId(), pedido.getDate(), produtos.stream().map(produto -> modelMapper.map(produto, ProdutoResponse.class)).collect(Collectors.toList())));
+            pedidosResponse.add(new PedidoResponse(pedido.getId(), pedido.getDate(), produtos.stream().map(produto -> modelMapper.map(produto, ProdutoResponse.class)).collect(Collectors.toList()), modelMapper.map(pedido.getEndereco(), EnderecoResponse.class), pedido.getValorTotal()));
 
         });
 

@@ -1,20 +1,15 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
-import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
-import br.unifei.imc.lojaprodutos.models.FinalizaPedido;
-import br.unifei.imc.lojaprodutos.services.ClienteService;
+import br.unifei.imc.lojaprodutos.dto.request.FinalizaPedidoRequest;
+import br.unifei.imc.lojaprodutos.services.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -25,13 +20,13 @@ import lombok.AllArgsConstructor;
 @Tag(name = "Pedido Controller")
 public class PedidoController {
 
-    //private PedidoService pedidoService;
+    private PedidoService pedidoService;
 
-    @GetMapping(value = "/pedidos/finaliza")
-    @Operation(summary = "Finaliza um pedido")
-    public String finalizaPedido(@RequestBody FinalizaPedido finalizaPedido){
+    @PostMapping(value = "/finaliza-pedido")
+    @Operation(summary = "Finaliza um pedido do cliente")
+    public String finalizaPedido(@RequestBody FinalizaPedidoRequest finalizaPedidoRequest){
 
-        return "Esse endpoint ainda não está finalizado, mas vc pode seguir o exemplo do body para mapear no front";
+        return pedidoService.insertOrder(finalizaPedidoRequest);
     }
 
 }

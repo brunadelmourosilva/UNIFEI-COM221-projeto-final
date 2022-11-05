@@ -1,7 +1,6 @@
-package br.unifei.imc.lojaprodutos.dto.response;
+package br.unifei.imc.lojaprodutos.exceptions;
 
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,17 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoResponse {
+public class StandardError {
 
-    private Integer id;
+    private String msg;
 
     @JsonFormat(pattern = "dd/MM/yyyy H:mm:ss", locale = "pt_BR", timezone = "Brazil/East")
-    private Date dataPedido;
-
-    private List<ProdutoResponse> produtos;
-
-    private EnderecoResponse endereco;
-    
-    private Double valorTotal;
+    private Date timestamp;
     
 }
