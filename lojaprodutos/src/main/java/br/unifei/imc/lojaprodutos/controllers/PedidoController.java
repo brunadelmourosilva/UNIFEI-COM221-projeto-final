@@ -25,16 +25,7 @@ import lombok.AllArgsConstructor;
 @Tag(name = "Pedido Controller")
 public class PedidoController {
 
-    private ClienteService clienteService;
     //private PedidoService pedidoService;
-
-    @GetMapping(value = "/pedidos/cliente/{id}")
-    @Operation(summary = "Retorna todos os pedidos de um cliente")
-    public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer id) {
-        var pedidos = clienteService.findAllPedidosByClienteId(id);
-
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
-    }
 
     @GetMapping(value = "/pedidos/finaliza")
     @Operation(summary = "Finaliza um pedido")
