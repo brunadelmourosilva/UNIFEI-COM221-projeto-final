@@ -26,18 +26,18 @@ public class ClienteController {
 
     private ClienteService clienteService;
 
-    @GetMapping(value = "/pedidos/{id}")
+    @GetMapping(value = "/pedidos/{clienteId}")
     @Operation(summary = "Retorna todos os pedidos de um cliente")
-    public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer id) {
-        var pedidos = clienteService.findAllPedidosByClienteId(id);
+    public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer clienteId) {
+        var pedidos = clienteService.findAllPedidosByClienteId(clienteId);
 
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/enderecos/{id}")
+    @GetMapping(value = "/enderecos/{clienteId}")
     @Operation(summary = "Retorna todos os endereços de um cliente")
-    public ResponseEntity<List<EnderecoResponse>> getAllAddresses(@PathVariable Integer id) {
-        var enderecos = clienteService.getAllAddressesByCustomer(id);
+    public ResponseEntity<List<EnderecoResponse>> getAllAddresses(@PathVariable Integer clienteId) {
+        var enderecos = clienteService.getAllAddressesByCustomer(clienteId);
 
         return new ResponseEntity<>(enderecos, HttpStatus.OK);
     }

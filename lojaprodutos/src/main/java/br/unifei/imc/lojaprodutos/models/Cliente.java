@@ -41,6 +41,7 @@ public class Cliente {
     @Column(name = "SENHA")
     private String password;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Cartao cartao;
 
