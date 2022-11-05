@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,20 +39,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.cors();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-        http.authorizeRequests()
+        http
+        .headers().frameOptions().disable()
+        .and()
+        .cors()
+        .and()
+        .csrf().disable()
+        .authorizeRequests()
         .antMatchers("/login", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/estados/**", "/cidades/**").permitAll()
-        .antMatchers("/categorias", "/produtos/**", "/clientes/**", "/estados", "/cidades").hasRole("USER")
+        .antMatchers("/categorias", "/produtos/**", "/clientes/pedidos/**","/clientes/enderecos/**", "/estados", "/cidades").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/clientes").permitAll()
         .anyRequest().authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(clienteRepository, authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
