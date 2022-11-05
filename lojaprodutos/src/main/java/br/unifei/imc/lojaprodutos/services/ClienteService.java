@@ -52,7 +52,13 @@ public class ClienteService {
 
         var clienteSalvo = clienteRepository.save(cliente);
 
-        return modelMapper.map(clienteSalvo, ClienteResponse.class);
+        var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
+
+        var enderecosResponse = enderecoService.insertAddresses(clienteRequest, clienteSalvo);
+        clienteResponse.setAddresses(enderecosResponse);
+
+        return clienteResponse;
+
     }
 
     public List<PedidoResponse> findAllPedidosByClienteId(Integer id){
