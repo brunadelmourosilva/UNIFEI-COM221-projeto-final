@@ -34,6 +34,9 @@ public class CartaoService {
     }
 
     public CartaoResponse getCardByCustomer(Integer id) {
+
+        clienteService.getCustomerById(id);
+
         try {
             var cartao = cartaoRepository.findCartaoByClienteId(id);
 
@@ -46,7 +49,6 @@ public class CartaoService {
 
     private boolean verificaSeOClienteJaPossuiCartao(Cliente cliente){
         return cartaoRepository.findCartaoByClienteId(cliente.getId()) != null ? true : false;
-
-
     }
+
 }

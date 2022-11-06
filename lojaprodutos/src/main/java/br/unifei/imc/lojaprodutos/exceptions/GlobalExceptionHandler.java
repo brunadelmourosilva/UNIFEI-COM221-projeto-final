@@ -17,5 +17,19 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
-    
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException e){
+        var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<StandardError> emailJaCadastradoException(EmailJaCadastradoException e){
+        var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
 }
