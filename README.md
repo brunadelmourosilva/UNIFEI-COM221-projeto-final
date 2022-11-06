@@ -21,7 +21,7 @@ producer
 consumer
 
 * OK receber objeto order
-* implementar strategy com formas de pagamento escolhida
+* OK implementar strategy com formas de pagamento escolhida
 * realizar calculos -> implementar calculo preço total back-end
 * OK enviar email para cliente
 * implementar tymeleaf para template do e-mail
