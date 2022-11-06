@@ -18,7 +18,6 @@ public class FinalizaPedidoListener {
 
     private EmailService emailService;
 
-    //todo testar envio de email
 
     @RabbitListener(queues = "#{'${spring.rabbitmq.queues}'.split(',')}")
     public void receiveMessage(Message message) throws IOException {
