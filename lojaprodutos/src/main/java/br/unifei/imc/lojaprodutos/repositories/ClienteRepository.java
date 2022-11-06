@@ -29,9 +29,3 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     
 }
 
-    // nativeQuery = true,
-    // value = "SELECT tprod.URL_IMAGEM, tprod.NOME_PRODUTO, tprod.PRECO FROM TB_PEDIDO tp " + 
-    //         "INNER JOIN TB_PRODUTO_PEDIDO tpp ON tpp.RF_PEDIDO = tp.PEDIDO_ID " +
-    //         "INNER JOIN TB_PRODUTO tprod ON tprod.PRODUTO_ID = tpp.RF_PRODUTO " + 
-    //         "WHERE tp.RF_CLIENTE = ?1 AND " +
-    //         "tp.PEDIDO_ID = ?2")

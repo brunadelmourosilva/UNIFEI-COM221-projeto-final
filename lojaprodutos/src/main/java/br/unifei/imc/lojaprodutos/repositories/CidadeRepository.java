@@ -12,4 +12,6 @@ public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
 
     @Query(value = "SELECT * FROM TB_CIDADE tc WHERE tc.RF_ESTADO = ?1", nativeQuery = true)
     List<Cidade> findAllCitiesByState(Integer id);
+
+    boolean existsById(Integer id);
 }

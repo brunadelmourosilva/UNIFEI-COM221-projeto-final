@@ -60,7 +60,7 @@ public class PedidoService {
 
         pedidoRepository.save(pedido);
 
-        convertModelToPublishMessage(pedido);
+        //convertModelToPublishMessage(pedido);
 
         return "Pedido salvo com sucesso!";
     }
