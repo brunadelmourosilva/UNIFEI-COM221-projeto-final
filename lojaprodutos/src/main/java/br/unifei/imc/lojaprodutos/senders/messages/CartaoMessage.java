@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteMessage {
+public class CartaoMessage {
 
-    private String name;
+    private String cardNumber;
 
-    private String email;
+    private String validity;
 
-    private CartaoMessage cartao;
+    private String securityCode;
 }
