@@ -1,9 +1,15 @@
 package br.unifei.imc.lojaprodutos.services;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import br.unifei.imc.lojaprodutos.senders.FinalizaPedidoSender;
+import br.unifei.imc.lojaprodutos.senders.messages.ClienteMessage;
+import br.unifei.imc.lojaprodutos.senders.messages.EnderecoMessage;
+import br.unifei.imc.lojaprodutos.senders.messages.FinalizaPedidoMessage;
+import br.unifei.imc.lojaprodutos.senders.messages.ProdutoMessage;
 import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,14 +28,16 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class PedidoService {
-    
+
     private ClienteService clienteService;
 
     private PedidoRepository pedidoRepository;
 
     private EnderecoRepository enderecoRepository;
 
-    private ModelMapper modelMapper; 
+    private FinalizaPedidoSender finishOrderSender;
+
+    private ModelMapper modelMapper;
 
     public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
         var cliente = getUserDetails();
@@ -38,9 +46,9 @@ public class PedidoService {
 
 
         var produtos = finalizaPedidoRequest.getProdutos()
-                        .stream()
-                        .map(produto -> modelMapper.map(produto, Produto.class))
-                        .collect(Collectors.toList());
+                .stream()
+                .map(produto -> modelMapper.map(produto, Produto.class))
+                .collect(Collectors.toList());
 
         var pedido = new Pedido();
         pedido.setCustomer(cliente);
@@ -52,12 +60,41 @@ public class PedidoService {
 
         pedidoRepository.save(pedido);
 
+        convertModelToPublishMessage(pedido);
+
         return "Pedido salvo com sucesso!";
     }
 
-    public Cliente getUserDetails() {
+    private Cliente getUserDetails() {
         var usuarioLogado = (UsuarioSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
+
         return clienteService.getCustomerById(usuarioLogado.getId());
+    }
+
+    private void convertModelToPublishMessage(Pedido pedido) {
+        var clienteMessage = modelMapper.map(pedido.getCustomer(), ClienteMessage.class);
+
+        var enderecoMessage = modelMapper.map(pedido.getEndereco(), EnderecoMessage.class);
+
+        var produtoMessage = new ArrayList<ProdutoMessage>();
+        pedido.getProducts()
+                .stream()
+                .map(produto -> produtoMessage.add(new ProdutoMessage(produto.getName(), produto.getPrice(), produto.getImage())))
+                .collect(Collectors.toList());
+
+        var message = new FinalizaPedidoMessage();
+        message.setId(pedido.getId());
+        message.setDate(pedido.getDate());
+        message.setPayment(pedido.getPayment());
+        message.setValorTotal(pedido.getValorTotal());
+        message.setAddress(enderecoMessage);
+        message.setProducts(produtoMessage);
+        message.setCustomer(clienteMessage);
+
+        senderOrderToQueue(message);
+    }
+
+    private void senderOrderToQueue(FinalizaPedidoMessage finalizaPedidoMessage) {
+        finishOrderSender.publishMessage(finalizaPedidoMessage);
     }
 }

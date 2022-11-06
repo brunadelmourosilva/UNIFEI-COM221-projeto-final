@@ -45,11 +45,11 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "RF_ENDERECO")
-    private Endereco endereco;
+    private Endereco endereco; //todo replace to english
 
 
     @Column(name = "VALOR_TOTAL")
-    private Double valorTotal;
+    private Double valorTotal; //todo replace to english
 
     @Column(name = "TIPO_PAGAMENTO")
     private Integer payment;
