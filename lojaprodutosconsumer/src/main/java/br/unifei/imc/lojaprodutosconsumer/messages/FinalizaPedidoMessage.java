@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,12 +15,17 @@ import java.util.List;
 @ToString
 public class FinalizaPedidoMessage {
 
-    private Integer payment;
+    private Integer id;
 
-    private EnderecoMessage endereco;
+    private Date date;
 
-    private List<ProdutoMessage> produtos;
+    private ClienteMessage customer;
+
+    private List<ProdutoMessage> products;
+
+    private EnderecoMessage address;
 
     private Double valorTotal;
 
+    private Integer payment;
 }

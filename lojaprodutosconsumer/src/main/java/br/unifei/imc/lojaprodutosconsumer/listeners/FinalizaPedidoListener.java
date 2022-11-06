@@ -1,26 +1,29 @@
 package br.unifei.imc.lojaprodutosconsumer.listeners;
 
-import br.unifei.imc.lojaprodutosconsumer.messages.FinishOrderMessage;
+import br.unifei.imc.lojaprodutosconsumer.messages.FinalizaPedidoMessage;
+import br.unifei.imc.lojaprodutosconsumer.services.interfaces.EmailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@AllArgsConstructor
 @Component
-public class FinishOrderListener {
+public class FinalizaPedidoListener {
 
     private ObjectMapper objectMapper;
 
-    public FinishOrderListener(final ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    private EmailService emailService;
+
+    //todo testar envio de email
 
     @RabbitListener(queues = "#{'${spring.rabbitmq.queues}'.split(',')}")
     public void receiveMessage(Message message) throws IOException {
-        final var result = objectMapper.readValue(message.getBody(), FinishOrderMessage.class);
+        final var result = objectMapper.readValue(message.getBody(), FinalizaPedidoMessage.class);
 
-        System.out.println(result.toString() + "\n\n\n");
+        emailService.sendEmail(result);
     }
 }
