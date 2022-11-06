@@ -7,6 +7,8 @@ todo: converter classes para inglês
 
 todo: adicionar ENUM para payment(1 ou 2)
 
+todo: validar se user já existe pelo e-mail
+
 producer
 
 * OK definir objeto
