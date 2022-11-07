@@ -15,7 +15,7 @@ public class FinalizaPedidoResponse {
 
     private Integer payment;
 
-    private EnderecoResponse endereco;
+    private EnderecoResponse address;
 
     private List<ProdutoResponse> produtos;
 

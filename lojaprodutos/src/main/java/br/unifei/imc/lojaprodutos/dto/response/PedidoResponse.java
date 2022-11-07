@@ -17,12 +17,14 @@ public class PedidoResponse {
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy H:mm:ss", locale = "pt_BR", timezone = "Brazil/East")
-    private Date dataPedido;
+    private Date date;
 
-    private List<ProdutoResponse> produtos;
+    private List<ProdutoResponse> products;
 
-    private EnderecoResponse endereco;
+    private EnderecoResponse address;
     
-    private Double valorTotal;
+    private Double totalPrice;
+
+    private Integer payment;
     
 }

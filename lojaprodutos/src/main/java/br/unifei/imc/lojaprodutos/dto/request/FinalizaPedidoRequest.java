@@ -12,10 +12,10 @@ public class FinalizaPedidoRequest {
 
     private Integer payment;
 
-    private EnderecoRequest endereco;
+    private EnderecoRequest address;
 
-    private List<ProdutoRequest> produtos;
+    private List<ProdutoRequest> products;
 
-    private Double valorTotal;
+    private Double totalPrice;
 
 }

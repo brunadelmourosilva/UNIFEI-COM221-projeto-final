@@ -51,7 +51,7 @@ public class Endereco {
     @JoinColumn(name = "RF_CIDADE")
     private Cidade city;
 
-    @OneToMany(mappedBy = "endereco")
+    @OneToMany(mappedBy = "address")
     private List<Pedido> pedido;
 
 }

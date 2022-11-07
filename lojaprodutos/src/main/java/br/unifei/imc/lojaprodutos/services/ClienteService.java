@@ -95,8 +95,9 @@ public class ClienteService {
                 pedido.getId(),
                  pedido.getDate(),
                   produtos.isEmpty() ? Collections.emptyList() : produtos.stream().map(produto -> modelMapper.map(produto, ProdutoResponse.class)).collect(Collectors.toList()),
-                   modelMapper.map(pedido.getEndereco(), EnderecoResponse.class),
-                    pedido.getValorTotal()));
+                   modelMapper.map(pedido.getAddress(), EnderecoResponse.class),
+                    pedido.getValorTotal(),
+                     pedido.getPayment()));
 
         });
 

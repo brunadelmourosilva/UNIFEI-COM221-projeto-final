@@ -42,10 +42,10 @@ public class PedidoService {
     public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
         var cliente = getUserDetails();
 
-        Endereco endereco = enderecoRepository.findById(finalizaPedidoRequest.getEndereco().getId()).orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
+        Endereco endereco = enderecoRepository.findById(finalizaPedidoRequest.getAddress().getId()).orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
 
 
-        var produtos = finalizaPedidoRequest.getProdutos()
+        var produtos = finalizaPedidoRequest.getProducts()
                 .stream()
                 .map(produto -> modelMapper.map(produto, Produto.class))
                 .collect(Collectors.toList());
@@ -53,9 +53,9 @@ public class PedidoService {
         var pedido = new Pedido();
         pedido.setCustomer(cliente);
         pedido.setDate(Date.from(Instant.now()));
-        pedido.setEndereco(endereco);
+        pedido.setAddress(endereco);
         pedido.setProducts(produtos);
-        pedido.setValorTotal(finalizaPedidoRequest.getValorTotal());
+        pedido.setValorTotal(finalizaPedidoRequest.getTotalPrice());
         pedido.setPayment(finalizaPedidoRequest.getPayment());
 
         pedidoRepository.save(pedido);
@@ -74,7 +74,7 @@ public class PedidoService {
     private void convertModelToPublishMessage(Pedido pedido) {
         var clienteMessage = modelMapper.map(pedido.getCustomer(), ClienteMessage.class);
 
-        var enderecoMessage = modelMapper.map(pedido.getEndereco(), EnderecoMessage.class);
+        var enderecoMessage = modelMapper.map(pedido.getAddress(), EnderecoMessage.class);
 
         var produtoMessage = new ArrayList<ProdutoMessage>();
         pedido.getProducts()

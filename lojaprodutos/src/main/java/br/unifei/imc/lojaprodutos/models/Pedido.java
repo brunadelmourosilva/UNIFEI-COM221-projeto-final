@@ -45,7 +45,7 @@ public class Pedido {
 
     @ManyToOne
     @JoinColumn(name = "RF_ENDERECO")
-    private Endereco endereco; //todo replace to english
+    private Endereco address; //todo replace to english
 
 
     @Column(name = "VALOR_TOTAL")
