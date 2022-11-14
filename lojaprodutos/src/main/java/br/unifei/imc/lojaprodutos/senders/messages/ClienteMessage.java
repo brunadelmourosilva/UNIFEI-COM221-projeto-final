@@ -14,5 +14,5 @@ public class ClienteMessage {
 
     private String email;
 
-    private CartaoMessage cartao;
+    private CartaoMessage card;
 }

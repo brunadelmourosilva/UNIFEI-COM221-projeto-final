@@ -28,4 +28,6 @@ public class FinalizaPedidoMessage {
     private Double totalPrice;
 
     private Integer payment;
+
+    private String randomKey;
 }

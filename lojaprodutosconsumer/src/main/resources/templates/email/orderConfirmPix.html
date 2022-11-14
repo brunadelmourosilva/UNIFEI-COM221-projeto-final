@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Order Confirmation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div>
+    <p>
+        Order number: <span th:text="${message.id}"> </span>
+    </p>
+    <p>
+        Date: <span
+            th:text="${#dates.format(message.date, 'dd/MM/yyyy hh:mm:ss')}"></span>
+    </p>
+    <p>
+        Customer: <span th:text="${message.customer.name}"></span>
+    </p>
+
+    <h3>Pix payment:</h3>
+    <p>
+        Random key: <span th:text="${message.randomKey}"></span>
+    </p>
+
+    <h3>Details:</h3>
+    <table border="1">
+        <tr>
+            <th>Product</th>
+            <th>Amount</th>
+            <th>Unitary price</th>
+        </tr>
+        <tr th:each="product : ${message.products}">
+            <td th:text="${product.name}">name</td>
+            <td th:text="${product.quantity}">quantity</td>
+            <td th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 2,
+'COMMA')}">price</td>
+        </tr>
+    </table>
+    <h3>
+        Total price: <span th:text="${#numbers.formatDecimal(message.totalPrice, 0,
+'POINT', 2, 'COMMA')}"></span>
+    </h3>
+</div>
+
+</body>
+</html>

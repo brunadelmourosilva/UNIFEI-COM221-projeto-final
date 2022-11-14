@@ -13,5 +13,7 @@ public class ProdutoMessage {
 
     private Double price;
 
+    private Integer quantity; //todo front
+
     private String image;
 }

@@ -42,7 +42,7 @@ public class Cliente {
 
     @JsonIgnore
     @OneToOne(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private Cartao cartao;
+    private Cartao card;
 
     @JsonIgnore
     @OneToMany(mappedBy = "customer")

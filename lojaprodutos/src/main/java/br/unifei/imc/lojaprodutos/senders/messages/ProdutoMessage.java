@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 
 @Data
 @AllArgsConstructor
@@ -15,6 +13,8 @@ public class ProdutoMessage {
     private String name;
 
     private Double price;
+
+    //private Integer quantity; //todo
 
     private String image;
 }

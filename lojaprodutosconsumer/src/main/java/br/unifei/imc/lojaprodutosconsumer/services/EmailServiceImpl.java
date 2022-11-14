@@ -11,10 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -24,47 +31,50 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     @Autowired
-    private MailSender mailSender;
+    private JavaMailSender javaMailSender;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     private PagamentoStrategy pagamento;
 
     @Override
-    public void sendEmail(FinalizaPedidoMessage message){
-        if(StringUtils.isNotBlank(message.getCustomer().getEmail())) {
-            SimpleMailMessage sendMessage = prepareSimpleMailMessageFromFinishOrder(message);
-            mailSender.send(sendMessage);
+    public void sendEmail(FinalizaPedidoMessage message) {
+        if (StringUtils.isNotBlank(message.getCustomer().getEmail())) {
+            MimeMessage sendMessage = null;
+            try {
+                sendMessage = prepareSimpleMailMessageFromFinishOrder(message);
+                javaMailSender.send(sendMessage);
+                log.info("E-mail sent to " + message.getCustomer().getEmail());
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
 
-            log.info("E-mail sent to " + message.getCustomer().getEmail());
         }
     }
 
-
-    //todo OK implementar strategy com formas de pagamento escolhida
-    //todo realizar calculo do valor total aqui e não no front
-    //todo se pix: enviar QR code(aprender como criar QR code)
-    //todo se cartão: enviar dados do cartão de acordo com cliente
-    //todo adicionar thymeleaf para corpo do e-mail
     @Override
-    public SimpleMailMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message) {
-        var simpleMailMessage =new SimpleMailMessage();
+    public MimeMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
 
-        //todo finish - testar
-        valorPagamentoFinal(message);
+        messageHelper.setFrom(sender);
+        messageHelper.setTo(message.getCustomer().getEmail());
 
-        simpleMailMessage.setFrom(sender);
-        simpleMailMessage.setTo(message.getCustomer().getEmail());
+        messageHelper.setSubject("Order confirmed!");
+        messageHelper.setSentDate(Date.from(Instant.now()));
+        messageHelper.setText(htmlFromTemplateOrder(message, this.pagamento), true);
 
-        simpleMailMessage.setSubject("Dummy subject");
-        simpleMailMessage.setText("Hello, " + message.getCustomer().getName() + "! ");
-        simpleMailMessage.setSentDate(Date.from(Instant.now()));
-
-        return simpleMailMessage;
+        return mimeMessage;
     }
 
-    private void valorPagamentoFinal(FinalizaPedidoMessage message) {
-        this.pagamento = message.getPayment().equals(1) ? new PixStrategy() : new CartaoStrategy();
+    @Override
+    public String htmlFromTemplateOrder(FinalizaPedidoMessage message, PagamentoStrategy pagamentoStrategy) {
+        Context context = new Context();
+        context.setVariable("message", message); // nickname for thymeleaf
 
-        var valorFinal = this.pagamento.calculaPreco(message);
-        message.setTotalPrice(valorFinal);
+        this.pagamento = message.getPayment().equals(1) ? new PixStrategy(templateEngine) : new CartaoStrategy(templateEngine);
+
+        return this.pagamento.calculaPreco(message, context);
     }
 }

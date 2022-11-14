@@ -1,8 +1,9 @@
 package br.unifei.imc.lojaprodutosconsumer.strategy.interfaces;
 
 import br.unifei.imc.lojaprodutosconsumer.messages.FinalizaPedidoMessage;
+import org.thymeleaf.context.Context;
 
 public interface PagamentoStrategy {
 
-    Double calculaPreco(FinalizaPedidoMessage message);
+    String calculaPreco(FinalizaPedidoMessage message, Context context);
 }
