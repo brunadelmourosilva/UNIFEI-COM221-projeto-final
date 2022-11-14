@@ -65,6 +65,6 @@ public class EmailServiceImpl implements EmailService {
         this.pagamento = message.getPayment().equals(1) ? new PixStrategy() : new CartaoStrategy();
 
         var valorFinal = this.pagamento.calculaPreco(message);
-        message.setValorTotal(valorFinal);
+        message.setTotalPrice(valorFinal);
     }
 }

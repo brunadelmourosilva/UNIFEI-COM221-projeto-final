@@ -25,7 +25,7 @@ public class FinalizaPedidoMessage {
 
     private EnderecoMessage address;
 
-    private Double valorTotal;
+    private Double totalPrice;
 
     private Integer payment;
 }

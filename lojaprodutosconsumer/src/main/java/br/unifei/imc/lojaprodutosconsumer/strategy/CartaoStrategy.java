@@ -13,6 +13,6 @@ public class CartaoStrategy implements PagamentoStrategy {
 
     @Override
     public Double calculaPreco(final FinalizaPedidoMessage message) {
-        return message.getValorTotal() * JUROS;
+        return message.getTotalPrice() * JUROS;
     }
 }

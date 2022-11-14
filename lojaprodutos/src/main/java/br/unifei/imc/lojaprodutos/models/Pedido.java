@@ -1,16 +1,9 @@
 package br.unifei.imc.lojaprodutos.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,18 +31,18 @@ public class Pedido {
 
     @ManyToMany
     @JoinTable(
-        name = "TB_PRODUTO_PEDIDO",
-        joinColumns = @JoinColumn(name = "RF_PEDIDO"),
-        inverseJoinColumns = @JoinColumn(name = "RF_PRODUTO"))
+            name = "TB_PRODUTO_PEDIDO",
+            joinColumns = @JoinColumn(name = "RF_PEDIDO"),
+            inverseJoinColumns = @JoinColumn(name = "RF_PRODUTO"))
     private List<Produto> products;
 
     @ManyToOne
     @JoinColumn(name = "RF_ENDERECO")
-    private Endereco address; //todo replace to english
+    private Endereco address;
 
 
     @Column(name = "VALOR_TOTAL")
-    private Double valorTotal; //todo replace to english
+    private Double totalPrice;
 
     @Column(name = "TIPO_PAGAMENTO")
     private Integer payment;

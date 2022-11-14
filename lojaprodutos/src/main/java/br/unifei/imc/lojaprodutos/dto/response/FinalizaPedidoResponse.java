@@ -17,8 +17,8 @@ public class FinalizaPedidoResponse {
 
     private EnderecoResponse address;
 
-    private List<ProdutoResponse> produtos;
+    private List<ProdutoResponse> products;
 
-    private Double valorTotal;
+    private Double totalPrice;
 
 }

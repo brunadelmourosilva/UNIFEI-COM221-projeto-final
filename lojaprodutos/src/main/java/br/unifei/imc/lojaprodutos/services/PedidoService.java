@@ -55,12 +55,12 @@ public class PedidoService {
         pedido.setDate(Date.from(Instant.now()));
         pedido.setAddress(endereco);
         pedido.setProducts(produtos);
-        pedido.setValorTotal(finalizaPedidoRequest.getTotalPrice());
+        pedido.setTotalPrice(finalizaPedidoRequest.getTotalPrice());
         pedido.setPayment(finalizaPedidoRequest.getPayment());
 
         pedidoRepository.save(pedido);
 
-        //convertModelToPublishMessage(pedido);
+        convertModelToPublishMessage(pedido);
 
         return "Pedido salvo com sucesso!";
     }
@@ -86,7 +86,7 @@ public class PedidoService {
         message.setId(pedido.getId());
         message.setDate(pedido.getDate());
         message.setPayment(pedido.getPayment());
-        message.setValorTotal(pedido.getValorTotal());
+        message.setTotalPrice(pedido.getTotalPrice());
         message.setAddress(enderecoMessage);
         message.setProducts(produtoMessage);
         message.setCustomer(clienteMessage);

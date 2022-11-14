@@ -52,6 +52,6 @@ public class Endereco {
     private Cidade city;
 
     @OneToMany(mappedBy = "address")
-    private List<Pedido> pedido;
+    private List<Pedido> order;
 
 }
