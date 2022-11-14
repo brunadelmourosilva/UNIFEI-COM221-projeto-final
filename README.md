@@ -1,13 +1,14 @@
 
 
 TODO
-todo: tratar todas as exceptions e add exception personalizada
+
+OK todo: tratar todas as exceptions e add exception personalizada
 
 todo: converter classes para inglês
 
 todo: adicionar ENUM para payment(1 ou 2)
 
-todo: validar se user já existe pelo e-mail
+OK todo: validar se user já existe pelo e-mail
 
 todo: realizar calculo do preço total no back-end(producer/consumer)
 
