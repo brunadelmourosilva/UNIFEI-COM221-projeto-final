@@ -22,9 +22,8 @@ public class FinalizaPedidoListener {
 
     @RabbitListener(queues = "#{'${spring.rabbitmq.queues}'.split(',')}")
     public void receiveMessage(Message message) throws IOException {
-        final var result = objectMapper.readValue(message.getBody(), FinalizaPedidoMessage.class);
-
         try {
+            final var result = objectMapper.readValue(message.getBody(), FinalizaPedidoMessage.class);
             emailService.sendEmail(result);
         } catch (AmqpRejectAndDontRequeueException e) {
             throw new AmqpRejectAndDontRequeueException("Error during the message process...");
