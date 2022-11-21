@@ -1,12 +1,17 @@
 
+Status
+
+:warning: Em progresso
+
+---
 
 TODO
 
 todo: converter classes para inglês
 
-OK todo: tratar todas as exceptions e add exception personalizada
+todo: tratar as exceptions para finalizar pedido
 
-OK todo: validar se user já existe pelo e-mail
+todo patterns: builder, strategy, DTO...
 
 
 producer
