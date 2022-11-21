@@ -25,7 +25,7 @@ public class CartaoController {
 
     @PostMapping
     @Operation(summary = "Realiza o cadastro do cartão do cliente")
-    public ResponseEntity<CartaoResponse> insertCustomerCard(@RequestBody CartaoRequest cartaoRequest) {
+    public ResponseEntity<CartaoResponse> insertCard(@RequestBody CartaoRequest cartaoRequest) {
         var cartaoResponse = cartaoService.insertCard(cartaoRequest);
 
         return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
@@ -33,7 +33,7 @@ public class CartaoController {
 
     @GetMapping(value = "/{clienteId}")
     @Operation(summary = "Retorna o cartão de um cliente")
-    public ResponseEntity<CartaoResponse> insertCustomerCard(@PathVariable(name = "clienteId") Integer id) {
+    public ResponseEntity<CartaoResponse> findCardByCustomer(@PathVariable(name = "clienteId") Integer id) {
         var cartaoResponse = cartaoService.getCardByCustomer(id);
 
         return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
