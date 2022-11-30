@@ -7,11 +7,11 @@ Status
 
 TODO
 
-todo: converter classes para inglês
+README
 
 todo: tratar as exceptions para finalizar pedido
 
-todo patterns: builder, strategy, DTO...
+todo patterns: builder, strategy, DTO... OK
 
 
 producer
