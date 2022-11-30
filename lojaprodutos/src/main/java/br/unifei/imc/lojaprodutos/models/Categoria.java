@@ -1,15 +1,14 @@
 package br.unifei.imc.lojaprodutos.models;
 
+import br.unifei.imc.lojaprodutos.builder.CategoriaBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -32,6 +31,10 @@ public class Categoria {
     @ManyToMany(mappedBy = "categories")
     private List<Produto> products;
 
+    public Categoria(String name, String image) {
+        this.name = name;
+        this.image = image;
+    }
 }
 
 
