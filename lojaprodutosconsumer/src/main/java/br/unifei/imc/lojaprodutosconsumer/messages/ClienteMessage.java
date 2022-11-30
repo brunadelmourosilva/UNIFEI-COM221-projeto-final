@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClienteMessage {
 
-    private String name;
+  private String name;
 
-    private String email;
+  private String email;
 
-    private CartaoMessage card;
+  private CartaoMessage card;
 }

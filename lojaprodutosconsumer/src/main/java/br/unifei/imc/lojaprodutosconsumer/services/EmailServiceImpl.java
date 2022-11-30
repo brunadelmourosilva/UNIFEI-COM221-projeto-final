@@ -27,54 +27,56 @@ import java.util.UUID;
 @Log4j2
 public class EmailServiceImpl implements EmailService {
 
-    @Value("${default.sender}")
-    private String sender;
+  @Value("${default.sender}")
+  private String sender;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+  @Autowired private JavaMailSender javaMailSender;
 
-    @Autowired
-    private TemplateEngine templateEngine;
+  @Autowired private TemplateEngine templateEngine;
 
-    private PagamentoStrategy pagamento;
+  private PagamentoStrategy pagamento;
 
-    @Override
-    public void sendEmail(FinalizaPedidoMessage message) {
-        if (StringUtils.isNotBlank(message.getCustomer().getEmail())) {
-            MimeMessage sendMessage = null;
-            try {
-                sendMessage = prepareSimpleMailMessageFromFinishOrder(message);
-                javaMailSender.send(sendMessage);
-                log.info("E-mail sent to " + message.getCustomer().getEmail());
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
+  @Override
+  public void sendEmail(FinalizaPedidoMessage message) {
+    if (StringUtils.isNotBlank(message.getCustomer().getEmail())) {
+      MimeMessage sendMessage = null;
+      try {
+        sendMessage = prepareSimpleMailMessageFromFinishOrder(message);
+        javaMailSender.send(sendMessage);
+        log.info("E-mail sent to " + message.getCustomer().getEmail());
+      } catch (MessagingException e) {
+        throw new RuntimeException(e);
+      }
     }
+  }
 
-    @Override
-    public MimeMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message) throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+  @Override
+  public MimeMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message)
+      throws MessagingException {
+    MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+    MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
 
-        messageHelper.setFrom(sender);
-        messageHelper.setTo(message.getCustomer().getEmail());
+    messageHelper.setFrom(sender);
+    messageHelper.setTo(message.getCustomer().getEmail());
 
-        messageHelper.setSubject("Order confirmed!");
-        messageHelper.setSentDate(Date.from(Instant.now()));
-        messageHelper.setText(htmlFromTemplateOrder(message, this.pagamento), true);
+    messageHelper.setSubject("Order confirmed!");
+    messageHelper.setSentDate(Date.from(Instant.now()));
+    messageHelper.setText(htmlFromTemplateOrder(message, this.pagamento), true);
 
-        return mimeMessage;
-    }
+    return mimeMessage;
+  }
 
-    @Override
-    public String htmlFromTemplateOrder(FinalizaPedidoMessage message, PagamentoStrategy pagamentoStrategy) {
-        Context context = new Context();
-        context.setVariable("message", message); // nickname for thymeleaf
+  @Override
+  public String htmlFromTemplateOrder(
+      FinalizaPedidoMessage message, PagamentoStrategy pagamentoStrategy) {
+    Context context = new Context();
+    context.setVariable("message", message); // nickname for thymeleaf
 
-        this.pagamento = message.getPayment().equals(1) ? new PixStrategy(templateEngine) : new CartaoStrategy(templateEngine);
+    this.pagamento =
+        message.getPayment().equals(1)
+            ? new PixStrategy(templateEngine)
+            : new CartaoStrategy(templateEngine);
 
-        return this.pagamento.calculaPreco(message, context);
-    }
+    return this.pagamento.calculaPreco(message, context);
+  }
 }

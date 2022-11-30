@@ -1,6 +1,5 @@
 package br.unifei.imc.lojaprodutosconsumer.messages;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,19 +14,19 @@ import java.util.List;
 @ToString
 public class FinalizaPedidoMessage {
 
-    private Integer id;
+  private Integer id;
 
-    private Date date;
+  private Date date;
 
-    private ClienteMessage customer;
+  private ClienteMessage customer;
 
-    private List<ProdutoMessage> products;
+  private List<ProdutoMessage> products;
 
-    private EnderecoMessage address;
+  private EnderecoMessage address;
 
-    private Double totalPrice;
+  private Double totalPrice;
 
-    private Integer payment;
+  private Integer payment;
 
-    private String randomKey;
+  private String randomKey;
 }

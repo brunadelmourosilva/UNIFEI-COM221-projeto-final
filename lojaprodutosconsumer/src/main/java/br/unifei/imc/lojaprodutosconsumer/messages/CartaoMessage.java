@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartaoMessage {
 
-    private String cardNumber;
+  private String cardNumber;
 
-    private String validity;
+  private String validity;
 
-    private String securityCode;
+  private String securityCode;
 }

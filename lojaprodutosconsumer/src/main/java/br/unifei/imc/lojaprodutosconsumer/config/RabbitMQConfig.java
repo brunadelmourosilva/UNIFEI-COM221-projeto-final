@@ -10,31 +10,30 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Value("${spring.rabbitmq.host}")
-    private String host;
+  @Value("${spring.rabbitmq.host}")
+  private String host;
 
-    @Value("${spring.rabbitmq.username}")
-    private String username;
+  @Value("${spring.rabbitmq.username}")
+  private String username;
 
-    @Value("${spring.rabbitmq.password}")
-    private String password;
+  @Value("${spring.rabbitmq.password}")
+  private String password;
 
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setHost(host);
-        connectionFactory.setUsername(username);
-        connectionFactory.setPassword(password);
+  @Bean
+  public ConnectionFactory connectionFactory() {
+    CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+    connectionFactory.setHost(host);
+    connectionFactory.setUsername(username);
+    connectionFactory.setPassword(password);
 
-        return connectionFactory;
-    }
+    return connectionFactory;
+  }
 
-    @Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        final SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
+  @Bean
+  public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
+    final SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+    factory.setConnectionFactory(connectionFactory());
 
-        return factory;
-    }
-
+    return factory;
+  }
 }

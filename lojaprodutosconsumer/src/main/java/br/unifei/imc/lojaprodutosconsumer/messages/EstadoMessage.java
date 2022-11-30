@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class EstadoMessage {
 
-    private String name;
+  private String name;
 }

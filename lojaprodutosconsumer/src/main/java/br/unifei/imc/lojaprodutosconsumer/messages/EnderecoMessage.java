@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 public class EnderecoMessage {
 
-    private String street;
+  private String street;
 
-    private String number;
+  private String number;
 
-    private String complement;
+  private String complement;
 
-    private String neighborhood;
+  private String neighborhood;
 
-    private String zipCode;
+  private String zipCode;
 
-    private CidadeMessage city;
+  private CidadeMessage city;
 }

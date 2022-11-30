@@ -5,5 +5,5 @@ import org.thymeleaf.context.Context;
 
 public interface PagamentoStrategy {
 
-    String calculaPreco(FinalizaPedidoMessage message, Context context);
+  String calculaPreco(FinalizaPedidoMessage message, Context context);
 }

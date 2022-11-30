@@ -8,9 +8,10 @@ import javax.mail.internet.MimeMessage;
 
 public interface EmailService {
 
-    void sendEmail(FinalizaPedidoMessage message);
+  void sendEmail(FinalizaPedidoMessage message);
 
-    MimeMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message) throws MessagingException;
+  MimeMessage prepareSimpleMailMessageFromFinishOrder(FinalizaPedidoMessage message)
+      throws MessagingException;
 
-    String htmlFromTemplateOrder(FinalizaPedidoMessage message, PagamentoStrategy pagamentoStrategy);
+  String htmlFromTemplateOrder(FinalizaPedidoMessage message, PagamentoStrategy pagamentoStrategy);
 }

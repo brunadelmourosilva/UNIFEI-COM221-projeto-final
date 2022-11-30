@@ -15,18 +15,17 @@ import java.io.IOException;
 @Component
 public class FinalizaPedidoListener {
 
-    private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
-    private EmailService emailService;
+  private EmailService emailService;
 
-
-    @RabbitListener(queues = "#{'${spring.rabbitmq.queues}'.split(',')}")
-    public void receiveMessage(Message message) throws IOException {
-        try {
-            final var result = objectMapper.readValue(message.getBody(), FinalizaPedidoMessage.class);
-            emailService.sendEmail(result);
-        } catch (AmqpRejectAndDontRequeueException e) {
-            throw new AmqpRejectAndDontRequeueException("Error during the message process...");
-        }
+  @RabbitListener(queues = "#{'${spring.rabbitmq.queues}'.split(',')}")
+  public void receiveMessage(Message message) throws IOException {
+    try {
+      final var result = objectMapper.readValue(message.getBody(), FinalizaPedidoMessage.class);
+      emailService.sendEmail(result);
+    } catch (AmqpRejectAndDontRequeueException e) {
+      throw new AmqpRejectAndDontRequeueException("Error during the message process...");
     }
+  }
 }

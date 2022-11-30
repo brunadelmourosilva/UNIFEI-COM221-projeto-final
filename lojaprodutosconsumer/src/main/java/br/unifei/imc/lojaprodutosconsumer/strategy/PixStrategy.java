@@ -12,21 +12,17 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PixStrategy implements PagamentoStrategy {
 
-    @Autowired
-    private TemplateEngine templateEngine;
+  @Autowired private TemplateEngine templateEngine;
 
-    private static final Double DESCONTO = 0.90;
+  private static final Double DESCONTO = 0.90;
 
-    /**
-     * For PIX type payment, there will be a 10% discount on the total purchase price.
-     */
+  /** For PIX type payment, there will be a 10% discount on the total purchase price. */
+  @Override
+  public String calculaPreco(final FinalizaPedidoMessage message, Context context) {
+    var valorFinal = message.getTotalPrice() * DESCONTO;
+    message.setTotalPrice(valorFinal);
+    message.setRandomKey(UUID.randomUUID().toString());
 
-    @Override
-    public String calculaPreco(final FinalizaPedidoMessage message, Context context) {
-        var valorFinal = message.getTotalPrice() * DESCONTO;
-        message.setTotalPrice(valorFinal);
-        message.setRandomKey(UUID.randomUUID().toString());
-
-        return templateEngine.process("email/orderConfirmPix", context);
-    }
+    return templateEngine.process("email/orderConfirmPix", context);
+  }
 }
