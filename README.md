@@ -7,7 +7,7 @@ Status
 
 TODO
 
-README
+README + techs
 
 todo: tratar as exceptions para finalizar pedido
 
