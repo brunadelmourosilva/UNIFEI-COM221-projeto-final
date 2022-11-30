@@ -29,72 +29,81 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PedidoService {
 
-    private ClienteService clienteService;
+  private ClienteService clienteService;
 
-    private PedidoRepository pedidoRepository;
+  private PedidoRepository pedidoRepository;
 
-    private EnderecoRepository enderecoRepository;
+  private EnderecoRepository enderecoRepository;
 
-    private FinalizaPedidoSender finishOrderSender;
+  private FinalizaPedidoSender finishOrderSender;
 
-    private ModelMapper modelMapper;
+  private ModelMapper modelMapper;
 
-    public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
-        var cliente = getUserDetails();
+  public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
+    var cliente = getUserDetails();
 
-        Endereco endereco = enderecoRepository.findById(finalizaPedidoRequest.getAddress().getId()).orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
+    Endereco endereco =
+        enderecoRepository
+            .findById(finalizaPedidoRequest.getAddress().getId())
+            .orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
 
+    var produtos =
+        finalizaPedidoRequest
+            .getProducts()
+            .stream()
+            .map(produto -> modelMapper.map(produto, Produto.class))
+            .collect(Collectors.toList());
 
-        var produtos = finalizaPedidoRequest.getProducts()
-                .stream()
-                .map(produto -> modelMapper.map(produto, Produto.class))
-                .collect(Collectors.toList());
+    var pedido = new Pedido();
+    pedido.setCustomer(cliente);
+    pedido.setDate(Date.from(Instant.now()));
+    pedido.setAddress(endereco);
+    pedido.setProducts(produtos);
+    pedido.setTotalPrice(finalizaPedidoRequest.getTotalPrice());
+    pedido.setPayment(finalizaPedidoRequest.getPayment());
 
-        var pedido = new Pedido();
-        pedido.setCustomer(cliente);
-        pedido.setDate(Date.from(Instant.now()));
-        pedido.setAddress(endereco);
-        pedido.setProducts(produtos);
-        pedido.setTotalPrice(finalizaPedidoRequest.getTotalPrice());
-        pedido.setPayment(finalizaPedidoRequest.getPayment());
+    pedidoRepository.save(pedido);
 
-        pedidoRepository.save(pedido);
+    convertModelToPublishMessage(pedido);
 
-        convertModelToPublishMessage(pedido);
+    return "Pedido salvo com sucesso!";
+  }
 
-        return "Pedido salvo com sucesso!";
-    }
+  private Cliente getUserDetails() {
+    var usuarioLogado =
+        (UsuarioSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    private Cliente getUserDetails() {
-        var usuarioLogado = (UsuarioSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return clienteService.getCustomerById(usuarioLogado.getId());
+  }
 
-        return clienteService.getCustomerById(usuarioLogado.getId());
-    }
+  private void convertModelToPublishMessage(Pedido pedido) {
+    var clienteMessage = modelMapper.map(pedido.getCustomer(), ClienteMessage.class);
 
-    private void convertModelToPublishMessage(Pedido pedido) {
-        var clienteMessage = modelMapper.map(pedido.getCustomer(), ClienteMessage.class);
+    var enderecoMessage = modelMapper.map(pedido.getAddress(), EnderecoMessage.class);
 
-        var enderecoMessage = modelMapper.map(pedido.getAddress(), EnderecoMessage.class);
+    var produtoMessage = new ArrayList<ProdutoMessage>();
+    pedido
+        .getProducts()
+        .stream()
+        .map(
+            produto ->
+                produtoMessage.add(
+                    new ProdutoMessage(produto.getName(), produto.getPrice(), produto.getImage())))
+        .collect(Collectors.toList());
 
-        var produtoMessage = new ArrayList<ProdutoMessage>();
-        pedido.getProducts()
-                .stream()
-                .map(produto -> produtoMessage.add(new ProdutoMessage(produto.getName(), produto.getPrice(), produto.getImage())))
-                .collect(Collectors.toList());
+    var message = new FinalizaPedidoMessage();
+    message.setId(pedido.getId());
+    message.setDate(pedido.getDate());
+    message.setPayment(pedido.getPayment());
+    message.setTotalPrice(pedido.getTotalPrice());
+    message.setAddress(enderecoMessage);
+    message.setProducts(produtoMessage);
+    message.setCustomer(clienteMessage);
 
-        var message = new FinalizaPedidoMessage();
-        message.setId(pedido.getId());
-        message.setDate(pedido.getDate());
-        message.setPayment(pedido.getPayment());
-        message.setTotalPrice(pedido.getTotalPrice());
-        message.setAddress(enderecoMessage);
-        message.setProducts(produtoMessage);
-        message.setCustomer(clienteMessage);
+    senderOrderToQueue(message);
+  }
 
-        senderOrderToQueue(message);
-    }
-
-    private void senderOrderToQueue(FinalizaPedidoMessage finalizaPedidoMessage) {
-        finishOrderSender.publishMessage(finalizaPedidoMessage);
-    }
+  private void senderOrderToQueue(FinalizaPedidoMessage finalizaPedidoMessage) {
+    finishOrderSender.publishMessage(finalizaPedidoMessage);
+  }
 }

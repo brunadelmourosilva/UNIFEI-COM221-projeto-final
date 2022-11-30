@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class CidadeResponse {
 
-    private Integer id;
+  private Integer id;
 
-    private String name;
+  private String name;
 
-    private EstadoResponse state;
-
+  private EstadoResponse state;
 }

@@ -11,10 +11,9 @@ import java.util.List;
 @Data
 public class ClienteResponse {
 
-    private String name;
+  private String name;
 
-    private String email;
+  private String email;
 
-    private List<EnderecoResponse> addresses;
-
+  private List<EnderecoResponse> addresses;
 }

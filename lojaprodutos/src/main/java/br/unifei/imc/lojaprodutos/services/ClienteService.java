@@ -20,7 +20,6 @@ import br.unifei.imc.lojaprodutos.repositories.PedidoRepository;
 import br.unifei.imc.lojaprodutos.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 
-
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,74 +33,97 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClienteService {
 
-    private EnderecoService enderecoService;
-    private ClienteRepository clienteRepository;
-    private RoleRepository roleRepository;
-    private ModelMapper modelMapper;
-    private CidadeRepository cidadeRepository;
-    private EstadoRepository estadoRepository;
+  private EnderecoService enderecoService;
+  private ClienteRepository clienteRepository;
+  private RoleRepository roleRepository;
+  private ModelMapper modelMapper;
+  private CidadeRepository cidadeRepository;
+  private EstadoRepository estadoRepository;
 
-    private PasswordEncoder encoder;
+  private PasswordEncoder encoder;
 
-    public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
-        var enderecos = enderecoService.getAllAddressesByCustomerId(id);
+  public List<EnderecoResponse> getAllAddressesByCustomer(Integer id) {
+    var enderecos = enderecoService.getAllAddressesByCustomerId(id);
 
-        return enderecos.stream()
-                .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
-                .collect(Collectors.toList());
-    }
+    return enderecos
+        .stream()
+        .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
+        .collect(Collectors.toList());
+  }
 
-    public Cliente getCustomerById(Integer id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Cliente não cadastrado."));
-    }
+  public Cliente getCustomerById(Integer id) {
+    return clienteRepository
+        .findById(id)
+        .orElseThrow(() -> new ObjectNotFoundException("Cliente não cadastrado."));
+  }
 
-    public ClienteResponse insertCustomer(ClienteCadastroRequest clienteCadastroRequest) {
+  public ClienteResponse insertCustomer(ClienteCadastroRequest clienteCadastroRequest) {
 
-        if(clienteRepository.findByEmail(clienteCadastroRequest.getEmail()) != null) throw new EmailJaCadastradoException("O e-mail informado já está cadastado.");
+    if (clienteRepository.findByEmail(clienteCadastroRequest.getEmail()) != null)
+      throw new EmailJaCadastradoException("O e-mail informado já está cadastado.");
 
-        var cliente = modelMapper.map(clienteCadastroRequest, Cliente.class);
-        cliente.setPassword(encoder.encode(clienteCadastroRequest.getPassword()));
+    var cliente = modelMapper.map(clienteCadastroRequest, Cliente.class);
+    cliente.setPassword(encoder.encode(clienteCadastroRequest.getPassword()));
 
-        cliente.getAddresses().forEach(address -> {
-            if(!cidadeRepository.existsById(address.getCity().getId())) throw new ObjectNotFoundException("Cidade não cadastrada.");
+    cliente
+        .getAddresses()
+        .forEach(
+            address -> {
+              if (!cidadeRepository.existsById(address.getCity().getId()))
+                throw new ObjectNotFoundException("Cidade não cadastrada.");
+            });
+
+    var clienteSalvo = clienteRepository.save(cliente);
+
+    roleRepository.save(new Role(null, "ROLE_USER", clienteSalvo));
+
+    var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
+
+    var enderecosResponse = enderecoService.insertAddresses(clienteCadastroRequest, clienteSalvo);
+    clienteResponse.setAddresses(enderecosResponse);
+
+    return clienteResponse;
+  }
+
+  public List<PedidoResponse> findAllPedidosByClienteId(Integer id) {
+
+    Cliente cliente =
+        clienteRepository
+            .findById(id)
+            .orElseThrow(() -> new ObjectNotFoundException("Cliente não cadastrado;"));
+
+    List<PedidoResponse> pedidosResponse = new ArrayList<>();
+
+    List<Pedido> pedidos =
+        clienteRepository
+            .findAllPedidosByClienteId(id)
+            .orElseThrow(
+                () ->
+                    new ObjectNotFoundException(
+                        "Não foram encontrados pedidos para o cliente informado."));
+
+    pedidos.forEach(
+        pedido -> {
+          List<Produto> produtos =
+              clienteRepository
+                  .findAllProdutosByClienteAndPedidoId(id, pedido.getId())
+                  .orElse(Collections.emptyList());
+
+          pedidosResponse.add(
+              new PedidoResponse(
+                  pedido.getId(),
+                  pedido.getDate(),
+                  produtos.isEmpty()
+                      ? Collections.emptyList()
+                      : produtos
+                          .stream()
+                          .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
+                          .collect(Collectors.toList()),
+                  modelMapper.map(pedido.getAddress(), EnderecoResponse.class),
+                  pedido.getTotalPrice(),
+                  pedido.getPayment()));
         });
 
-        var clienteSalvo = clienteRepository.save(cliente);
-
-        roleRepository.save(new Role(null, "ROLE_USER", clienteSalvo));
-
-        var clienteResponse = modelMapper.map(clienteSalvo, ClienteResponse.class);
-
-        var enderecosResponse = enderecoService.insertAddresses(clienteCadastroRequest, clienteSalvo);
-        clienteResponse.setAddresses(enderecosResponse);
-
-        return clienteResponse;
-
-    }
-
-    public List<PedidoResponse> findAllPedidosByClienteId(Integer id){
-
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Cliente não cadastrado;"));
-
-        List<PedidoResponse> pedidosResponse = new ArrayList<>();
-
-        List<Pedido> pedidos = clienteRepository.findAllPedidosByClienteId(id).orElseThrow(() -> new ObjectNotFoundException("Não foram encontrados pedidos para o cliente informado."));
-
-        pedidos.forEach(pedido -> {
-
-            List<Produto> produtos = clienteRepository.findAllProdutosByClienteAndPedidoId(id, pedido.getId()).orElse(Collections.emptyList());
-
-            pedidosResponse.add(new PedidoResponse(
-                pedido.getId(),
-                 pedido.getDate(),
-                  produtos.isEmpty() ? Collections.emptyList() : produtos.stream().map(produto -> modelMapper.map(produto, ProdutoResponse.class)).collect(Collectors.toList()),
-                   modelMapper.map(pedido.getAddress(), EnderecoResponse.class),
-                    pedido.getTotalPrice(),
-                     pedido.getPayment()));
-
-        });
-
-        return pedidosResponse;
-
-    }
+    return pedidosResponse;
+  }
 }

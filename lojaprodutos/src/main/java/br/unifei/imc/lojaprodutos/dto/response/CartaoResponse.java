@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class CartaoResponse {
 
-    private String cardNumber;
+  private String cardNumber;
 
-    private String validity;
+  private String validity;
 
-    private String securityCode;
+  private String securityCode;
 
-    @JsonIgnore
-    private ClienteCartaoResponse cliente;
+  @JsonIgnore private ClienteCartaoResponse cliente;
 }

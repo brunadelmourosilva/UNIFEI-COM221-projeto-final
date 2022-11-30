@@ -11,25 +11,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CartaoJaCadastradoException.class)
-    public ResponseEntity<StandardError> cartaoJaCadastradoException(CartaoJaCadastradoException e){
-        var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+  @ExceptionHandler(CartaoJaCadastradoException.class)
+  public ResponseEntity<StandardError> cartaoJaCadastradoException(CartaoJaCadastradoException e) {
+    var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
 
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
+    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+  }
 
-    @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException e){
-        var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+  @ExceptionHandler(ObjectNotFoundException.class)
+  public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException e) {
+    var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
+    return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+  }
 
-    @ExceptionHandler(EmailJaCadastradoException.class)
-    public ResponseEntity<StandardError> emailJaCadastradoException(EmailJaCadastradoException e){
-        var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+  @ExceptionHandler(EmailJaCadastradoException.class)
+  public ResponseEntity<StandardError> emailJaCadastradoException(EmailJaCadastradoException e) {
+    var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
 
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
+    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+  }
 }

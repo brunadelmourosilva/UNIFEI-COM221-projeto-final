@@ -15,40 +15,38 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CartaoService {
 
-    private ClienteService clienteService;
-    private CartaoRepository cartaoRepository;
-    private ModelMapper modelMapper;
+  private ClienteService clienteService;
+  private CartaoRepository cartaoRepository;
+  private ModelMapper modelMapper;
 
+  public CartaoResponse insertCard(CartaoRequest cartaoRequest) {
+    var cliente = clienteService.getCustomerById(cartaoRequest.getId());
 
-    public CartaoResponse insertCard(CartaoRequest cartaoRequest) {
-        var cliente = clienteService.getCustomerById(cartaoRequest.getId());
+    if (verificaSeOClienteJaPossuiCartao(cliente) == true)
+      throw new CartaoJaCadastradoException("O cliente já possui um cartão cadastrado.");
 
-        if(verificaSeOClienteJaPossuiCartao(cliente) == true) throw new CartaoJaCadastradoException("O cliente já possui um cartão cadastrado.");
+    var cartao = modelMapper.map(cartaoRequest, Cartao.class);
+    cartao.setCliente(cliente);
 
-        var cartao = modelMapper.map(cartaoRequest, Cartao.class);
-        cartao.setCliente(cliente);
+    cartao = cartaoRepository.save(cartao);
 
-        cartao = cartaoRepository.save(cartao);
+    return modelMapper.map(cartao, CartaoResponse.class);
+  }
 
-        return modelMapper.map(cartao, CartaoResponse.class);
+  public CartaoResponse getCardByCustomer(Integer id) {
+
+    clienteService.getCustomerById(id);
+
+    try {
+      var cartao = cartaoRepository.findCartaoByClienteId(id);
+
+      return modelMapper.map(cartao, CartaoResponse.class);
+    } catch (ObjectNotFoundException ex) {
+      throw new ObjectNotFoundException(1, "Usuário não encontrado.");
     }
+  }
 
-    public CartaoResponse getCardByCustomer(Integer id) {
-
-        clienteService.getCustomerById(id);
-
-        try {
-            var cartao = cartaoRepository.findCartaoByClienteId(id);
-
-            return modelMapper.map(cartao, CartaoResponse.class);
-        } catch (ObjectNotFoundException ex) {
-            throw new ObjectNotFoundException(1, "Usuário não encontrado.");
-        }
-
-    }
-
-    private boolean verificaSeOClienteJaPossuiCartao(Cliente cliente){
-        return cartaoRepository.findCartaoByClienteId(cliente.getId()) != null ? true : false;
-    }
-
+  private boolean verificaSeOClienteJaPossuiCartao(Cliente cliente) {
+    return cartaoRepository.findCartaoByClienteId(cliente.getId()) != null ? true : false;
+  }
 }

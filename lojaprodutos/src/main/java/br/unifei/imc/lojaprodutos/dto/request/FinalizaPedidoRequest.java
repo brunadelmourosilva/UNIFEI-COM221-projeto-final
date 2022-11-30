@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FinalizaPedidoRequest {
 
-    private Integer payment;
+  private Integer payment;
 
-    private EnderecoRequest address;
+  private EnderecoRequest address;
 
-    private List<ProdutoRequest> products;
+  private List<ProdutoRequest> products;
 
-    private Double totalPrice;
-
+  private Double totalPrice;
 }

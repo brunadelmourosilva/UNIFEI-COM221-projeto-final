@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 public class CartaoRequest {
 
-    private String cardNumber;
+  private String cardNumber;
 
-    private String validity;
+  private String validity;
 
-    private String securityCode;
+  private String securityCode;
 
-    @JsonProperty(value = "clienteId")
-    private Integer id;
+  @JsonProperty(value = "clienteId")
+  private Integer id;
 }

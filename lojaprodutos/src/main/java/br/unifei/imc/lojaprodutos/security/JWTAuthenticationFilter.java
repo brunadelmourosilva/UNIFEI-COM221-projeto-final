@@ -28,66 +28,60 @@ import lombok.Data;
 @AllArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private ClienteRepository clienteRepository;
-    private AuthenticationManager authenticationManager;
-    private JWTUtil jwtUtil;
+  private ClienteRepository clienteRepository;
+  private AuthenticationManager authenticationManager;
+  private JWTUtil jwtUtil;
 
+  @Override
+  public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+      throws AuthenticationException {
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
+    try {
+      Credenciais creds = new ObjectMapper().readValue(req.getInputStream(), Credenciais.class);
 
-        try {
-            Credenciais creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), Credenciais.class);
+      UsernamePasswordAuthenticationToken authToken =
+          new UsernamePasswordAuthenticationToken(
+              creds.getEmail(), creds.getSenha(), new ArrayList<>());
 
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
+      Authentication auth = authenticationManager.authenticate(authToken);
 
-            Authentication auth = authenticationManager.authenticate(authToken);
+      return auth;
 
-            return auth;
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            FilterChain chain,
-                                            Authentication auth) throws IOException, ServletException {
+  @Override
+  protected void successfulAuthentication(
+      HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth)
+      throws IOException, ServletException {
 
-        UsuarioSS usuario = (UsuarioSS) auth.getPrincipal();
+    UsuarioSS usuario = (UsuarioSS) auth.getPrincipal();
 
-        String token = "Bearer " + jwtUtil.generateToken(usuario);
+    String token = "Bearer " + jwtUtil.generateToken(usuario);
 
-        Cliente cliente = clienteRepository.findByEmail(usuario.getEmail());
+    Cliente cliente = clienteRepository.findByEmail(usuario.getEmail());
 
-        RetornoLogin retornoLogin = jwtUtil.constroiRetornoLogin(cliente, token);
+    RetornoLogin retornoLogin = jwtUtil.constroiRetornoLogin(cliente, token);
 
-        setHttpResponseConfigs(res, retornoLogin);
+    setHttpResponseConfigs(res, retornoLogin);
+  }
 
+  private void setHttpResponseConfigs(HttpServletResponse res, RetornoLogin retorno) {
+
+    String json;
+    try {
+      json = new ObjectMapper().writeValueAsString(retorno);
+
+      res.setStatus(HttpStatus.OK.value());
+      res.setContentType("application/json");
+      res.setCharacterEncoding("UTF-8");
+      res.getWriter().write(json);
+      res.flushBuffer();
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    private void setHttpResponseConfigs(HttpServletResponse res, RetornoLogin retorno){
-
-        String json;
-        try {
-            json = new ObjectMapper().writeValueAsString(retorno);
-
-            res.setStatus(HttpStatus.OK.value());
-            res.setContentType("application/json");
-            res.setCharacterEncoding("UTF-8");
-            res.getWriter().write(json);
-            res.flushBuffer();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    
-
+  }
 }

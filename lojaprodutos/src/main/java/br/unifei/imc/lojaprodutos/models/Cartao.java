@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,23 +14,30 @@ import javax.persistence.*;
 @Table(name = "TB_CARTAO")
 public class Cartao {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CARTAO_ID")
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "CARTAO_ID")
+  private Integer id;
 
-    @Column(name = "NUMERO_CARTAO")
-    private String cardNumber;
+  @Column(name = "NUMERO_CARTAO")
+  private String cardNumber;
 
-    @Column(name = "VALIDADE")
-    private String validity;
+  @Column(name = "VALIDADE")
+  private String validity;
 
-    @JsonIgnore
-    @Column(name = "CODIGO_SEGURANCA")
-    private String securityCode;
+  @JsonIgnore
+  @Column(name = "CODIGO_SEGURANCA")
+  private String securityCode;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "RF_CLIENTE")
-    private Cliente cliente;
+  @JsonIgnore
+  @OneToOne
+  @JoinColumn(name = "RF_CLIENTE")
+  private Cliente cliente;
+
+  public Cartao(String cardNumber, String validity, String securityCode, Cliente cliente) {
+    this.cardNumber = cardNumber;
+    this.validity = validity;
+    this.securityCode = securityCode;
+    this.cliente = cliente;
+  }
 }

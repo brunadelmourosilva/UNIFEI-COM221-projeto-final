@@ -4,15 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteMessage {
 
-    private String name;
+  private String name;
 
-    private String email;
+  private String email;
 
-    private CartaoMessage card;
+  private CartaoMessage card;
 }

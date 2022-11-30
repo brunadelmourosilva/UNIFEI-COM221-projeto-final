@@ -17,26 +17,29 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProdutoService {
 
-    private ProdutoRepository produtoRepository;
-    private CategoriaRepository categoriaRepository;
-    private ModelMapper modelMapper;
+  private ProdutoRepository produtoRepository;
+  private CategoriaRepository categoriaRepository;
+  private ModelMapper modelMapper;
 
-    public List<ProdutoResponse> getAllProducts() {
-        var produtos = produtoRepository.findAll();
+  public List<ProdutoResponse> getAllProducts() {
+    var produtos = produtoRepository.findAll();
 
-        return produtos.stream()
-                .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
-                .collect(Collectors.toList());
-    }
+    return produtos
+        .stream()
+        .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
+        .collect(Collectors.toList());
+  }
 
-    public List<ProdutoResponse> getAllProductsByCategory(Integer id) {
+  public List<ProdutoResponse> getAllProductsByCategory(Integer id) {
 
-        if(!categoriaRepository.existsById(id)) throw new ObjectNotFoundException("Categoria não existente.");
+    if (!categoriaRepository.existsById(id))
+      throw new ObjectNotFoundException("Categoria não existente.");
 
-        var produtos = produtoRepository.findAllProductsByCategory(id);
+    var produtos = produtoRepository.findAllProductsByCategory(id);
 
-        return produtos.stream()
-                .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
-                .collect(Collectors.toList());
-    }
+    return produtos
+        .stream()
+        .map(produto -> modelMapper.map(produto, ProdutoResponse.class))
+        .collect(Collectors.toList());
+  }
 }

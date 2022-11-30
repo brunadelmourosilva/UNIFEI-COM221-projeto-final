@@ -18,13 +18,13 @@ import java.util.List;
 @Tag(name = "Cidade Controller")
 public class CidadeController {
 
-    private CidadeService cidadeService;
+  private CidadeService cidadeService;
 
-    @GetMapping(value = "/estado/{estadoId}")
-    @Operation(summary = "Retorna todos as cidades de um estado")
-    public ResponseEntity<List<CidadeResponse>> getAllCitiesByState(@PathVariable Integer estadoId) {
-        var cities = cidadeService.getAllCitiesByState(estadoId);
+  @GetMapping(value = "/estado/{estadoId}")
+  @Operation(summary = "Retorna todos as cidades de um estado")
+  public ResponseEntity<List<CidadeResponse>> getAllCitiesByState(@PathVariable Integer estadoId) {
+    var cities = cidadeService.getAllCitiesByState(estadoId);
 
-        return new ResponseEntity<>(cities, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(cities, HttpStatus.OK);
+  }
 }

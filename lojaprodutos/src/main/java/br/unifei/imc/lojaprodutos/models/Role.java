@@ -22,16 +22,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROLE_ID")
-    private Integer roleId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ROLE_ID")
+  private Integer roleId;
 
-    @Column(name = "NOME_ROLE")
-    private String nomeRole;
+  @Column(name = "NOME_ROLE")
+  private String nomeRole;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "RF_CLIENTE")
-    private Cliente cliente;
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "RF_CLIENTE")
+  private Cliente cliente;
 }

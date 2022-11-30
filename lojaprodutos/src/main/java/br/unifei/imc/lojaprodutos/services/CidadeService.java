@@ -16,18 +16,20 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CidadeService {
 
-    private CidadeRepository cidadeRepository;
-    private EstadoRepository estadoRepository;
-    private ModelMapper modelMapper;
+  private CidadeRepository cidadeRepository;
+  private EstadoRepository estadoRepository;
+  private ModelMapper modelMapper;
 
-    public List<CidadeResponse> getAllCitiesByState(Integer id) {
+  public List<CidadeResponse> getAllCitiesByState(Integer id) {
 
-        if(!estadoRepository.existsById(id)) throw new ObjectNotFoundException("Estado não cadastrado.");
+    if (!estadoRepository.existsById(id))
+      throw new ObjectNotFoundException("Estado não cadastrado.");
 
-        var cities = cidadeRepository.findAllCitiesByState(id);
+    var cities = cidadeRepository.findAllCitiesByState(id);
 
-        return cities.stream()
-                .map(citie -> modelMapper.map(citie, CidadeResponse.class))
-                .collect(Collectors.toList());
-    }
+    return cities
+        .stream()
+        .map(citie -> modelMapper.map(citie, CidadeResponse.class))
+        .collect(Collectors.toList());
+  }
 }

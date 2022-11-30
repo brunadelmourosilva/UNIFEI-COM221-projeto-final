@@ -21,21 +21,22 @@ import java.util.List;
 @Tag(name = "Produto Controller")
 public class ProdutoController {
 
-    private ProdutoService produtoService;
+  private ProdutoService produtoService;
 
-    @GetMapping
-    @Operation(summary = "Retorna todos os produtos")
-    public ResponseEntity<List<ProdutoResponse>> getAllProducts() {
-        var produtos = produtoService.getAllProducts();
+  @GetMapping
+  @Operation(summary = "Retorna todos os produtos")
+  public ResponseEntity<List<ProdutoResponse>> getAllProducts() {
+    var produtos = produtoService.getAllProducts();
 
-        return new ResponseEntity<>(produtos, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(produtos, HttpStatus.OK);
+  }
 
-    @GetMapping(value = "/categoria/{categoriaId}")
-    @Operation(summary = "Retorna todos os produtos de uma categoria")
-    public ResponseEntity<List<ProdutoResponse>> getAllProductsByCategory(@PathVariable Integer categoriaId) {
-        var produtos = produtoService.getAllProductsByCategory(categoriaId);
+  @GetMapping(value = "/categoria/{categoriaId}")
+  @Operation(summary = "Retorna todos os produtos de uma categoria")
+  public ResponseEntity<List<ProdutoResponse>> getAllProductsByCategory(
+      @PathVariable Integer categoriaId) {
+    var produtos = produtoService.getAllProductsByCategory(categoriaId);
 
-        return new ResponseEntity<>(produtos, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(produtos, HttpStatus.OK);
+  }
 }

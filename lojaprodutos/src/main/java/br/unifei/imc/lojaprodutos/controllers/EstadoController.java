@@ -21,13 +21,13 @@ import java.util.List;
 @Tag(name = "Estado Controller")
 public class EstadoController {
 
-    private EstadoService estadoService;
+  private EstadoService estadoService;
 
-    @GetMapping
-    @Operation(summary = "Retorna todos os estados cadastrados")
-    public ResponseEntity<List<EstadoResponse>> getAllStates() {
-        var states = estadoService.getAllStates();
+  @GetMapping
+  @Operation(summary = "Retorna todos os estados cadastrados")
+  public ResponseEntity<List<EstadoResponse>> getAllStates() {
+    var states = estadoService.getAllStates();
 
-        return new ResponseEntity<>(states, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(states, HttpStatus.OK);
+  }
 }

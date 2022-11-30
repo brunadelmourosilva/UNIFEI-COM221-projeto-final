@@ -27,50 +27,66 @@ import br.unifei.imc.lojaprodutos.security.JWTUtil;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JWTUtil jwtUtil;
+  @Autowired private JWTUtil jwtUtil;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Autowired private UserDetailsService userDetailsService;
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+  @Autowired private ClienteRepository clienteRepository;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http
-        .headers().frameOptions().disable()
+    http.headers()
+        .frameOptions()
+        .disable()
         .and()
         .cors()
         .and()
-        .csrf().disable()
+        .csrf()
+        .disable()
         .authorizeRequests()
-        .antMatchers("/login", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/estados/**", "/cidades/**").permitAll()
-        .antMatchers("/categorias", "/produtos/**", "/clientes/pedidos/**","/clientes/enderecos/**", "/estados", "/cidades").hasRole("USER")
-        .antMatchers(HttpMethod.POST, "/clientes").permitAll()
-        .anyRequest().authenticated();
+        .antMatchers(
+            "/login",
+            "/h2-console/**",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/estados/**",
+            "/cidades/**")
+        .permitAll()
+        .antMatchers(
+            "/categorias",
+            "/produtos/**",
+            "/clientes/pedidos/**",
+            "/clientes/enderecos/**",
+            "/estados",
+            "/cidades")
+        .hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/clientes")
+        .permitAll()
+        .anyRequest()
+        .authenticated();
 
-        http.addFilter(new JWTAuthenticationFilter(clienteRepository, authenticationManager(), jwtUtil));
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+    http.addFilter(
+        new JWTAuthenticationFilter(clienteRepository, authenticationManager(), jwtUtil));
+    http.addFilter(
+        new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+  }
 
-    }
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+    configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedOrigins(Arrays.asList("*"));
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
 
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

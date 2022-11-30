@@ -21,13 +21,13 @@ import java.util.List;
 @Tag(name = "Categoria Controller")
 public class CategoriaController {
 
-    private CategoriaService categoriaService;
+  private CategoriaService categoriaService;
 
-    @GetMapping
-    @Operation(summary = "Retorna todas as categorias")
-    public ResponseEntity<List<CategoriaResponse>> getAllCategories() {
-        var categorias = categoriaService.getAllCategories();
+  @GetMapping
+  @Operation(summary = "Retorna todas as categorias")
+  public ResponseEntity<List<CategoriaResponse>> getAllCategories() {
+    var categorias = categoriaService.getAllCategories();
 
-        return new ResponseEntity<>(categorias, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(categorias, HttpStatus.OK);
+  }
 }

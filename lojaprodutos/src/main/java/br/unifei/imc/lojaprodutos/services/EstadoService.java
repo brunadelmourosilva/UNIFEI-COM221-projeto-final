@@ -13,15 +13,16 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EstadoService {
 
-    private EstadoRepository estadoRepository;
+  private EstadoRepository estadoRepository;
 
-    private ModelMapper modelMapper;
+  private ModelMapper modelMapper;
 
-    public List<EstadoResponse> getAllStates() {
-        var states = estadoRepository.findAll();
+  public List<EstadoResponse> getAllStates() {
+    var states = estadoRepository.findAll();
 
-        return states.stream()
-                .map(state -> modelMapper.map(state, EstadoResponse.class))
-                .collect(Collectors.toList());
-    }
+    return states
+        .stream()
+        .map(state -> modelMapper.map(state, EstadoResponse.class))
+        .collect(Collectors.toList());
+  }
 }

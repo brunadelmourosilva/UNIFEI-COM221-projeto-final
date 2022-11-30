@@ -12,13 +12,16 @@ import br.unifei.imc.lojaprodutos.repositories.ClienteRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+  @Autowired private ClienteRepository clienteRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Cliente cliente = clienteRepository.findByEmail(email);
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    Cliente cliente = clienteRepository.findByEmail(email);
 
-        return new UsuarioSS(cliente.getId(), cliente.getEmail(), cliente.getPassword(), cliente.rolesAsGrantedAuthorities());
-    }
+    return new UsuarioSS(
+        cliente.getId(),
+        cliente.getEmail(),
+        cliente.getPassword(),
+        cliente.rolesAsGrantedAuthorities());
+  }
 }

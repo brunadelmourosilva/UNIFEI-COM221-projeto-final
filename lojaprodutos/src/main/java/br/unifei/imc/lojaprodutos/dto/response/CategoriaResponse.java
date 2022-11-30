@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class CategoriaResponse {
 
-    private Integer id;
+  private Integer id;
 
-    private String name;
+  private String name;
 
-    private String image;
-
+  private String image;
 }

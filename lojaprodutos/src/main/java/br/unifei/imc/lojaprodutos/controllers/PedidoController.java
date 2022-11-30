@@ -1,6 +1,5 @@
 package br.unifei.imc.lojaprodutos.controllers;
 
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +19,12 @@ import lombok.AllArgsConstructor;
 @Tag(name = "Pedido Controller")
 public class PedidoController {
 
-    private PedidoService pedidoService;
+  private PedidoService pedidoService;
 
-    @PostMapping(value = "/finaliza-pedido")
-    @Operation(summary = "Finaliza um pedido do cliente")
-    public String finalizaPedido(@RequestBody FinalizaPedidoRequest finalizaPedidoRequest){
+  @PostMapping(value = "/finaliza-pedido")
+  @Operation(summary = "Finaliza um pedido do cliente")
+  public String finalizaPedido(@RequestBody FinalizaPedidoRequest finalizaPedidoRequest) {
 
-        return pedidoService.insertOrder(finalizaPedidoRequest);
-    }
-
+    return pedidoService.insertOrder(finalizaPedidoRequest);
+  }
 }

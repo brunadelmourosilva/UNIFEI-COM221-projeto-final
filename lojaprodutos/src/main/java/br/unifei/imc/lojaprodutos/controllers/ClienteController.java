@@ -27,31 +27,31 @@ import javax.transaction.Transactional;
 @Tag(name = "Cliente Controller")
 public class ClienteController {
 
-    private ClienteService clienteService;
+  private ClienteService clienteService;
 
-    @GetMapping(value = "/pedidos/{clienteId}")
-    @Operation(summary = "Retorna todos os pedidos de um cliente")
-    public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer clienteId) {
-        var pedidos = clienteService.findAllPedidosByClienteId(clienteId);
+  @GetMapping(value = "/pedidos/{clienteId}")
+  @Operation(summary = "Retorna todos os pedidos de um cliente")
+  public ResponseEntity<List<PedidoResponse>> findAllPedidos(@PathVariable Integer clienteId) {
+    var pedidos = clienteService.findAllPedidosByClienteId(clienteId);
 
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(pedidos, HttpStatus.OK);
+  }
 
-    @GetMapping(value = "/enderecos/{clienteId}")
-    @Operation(summary = "Retorna todos os endereços de um cliente")
-    public ResponseEntity<List<EnderecoResponse>> getAllAddresses(@PathVariable Integer clienteId) {
-        var enderecos = clienteService.getAllAddressesByCustomer(clienteId);
+  @GetMapping(value = "/enderecos/{clienteId}")
+  @Operation(summary = "Retorna todos os endereços de um cliente")
+  public ResponseEntity<List<EnderecoResponse>> getAllAddresses(@PathVariable Integer clienteId) {
+    var enderecos = clienteService.getAllAddressesByCustomer(clienteId);
 
-        return new ResponseEntity<>(enderecos, HttpStatus.OK);
-    }
+    return new ResponseEntity<>(enderecos, HttpStatus.OK);
+  }
 
-    @PostMapping
-    @Operation(summary = "Realiza o cadastro de um cliente")
-    @Transactional
-    public ResponseEntity<ClienteResponse> insertCustomer(@RequestBody ClienteCadastroRequest clienteCadastroRequest) {
-        var clienteResponse = clienteService.insertCustomer(clienteCadastroRequest);
+  @PostMapping
+  @Operation(summary = "Realiza o cadastro de um cliente")
+  @Transactional
+  public ResponseEntity<ClienteResponse> insertCustomer(
+      @RequestBody ClienteCadastroRequest clienteCadastroRequest) {
+    var clienteResponse = clienteService.insertCustomer(clienteCadastroRequest);
 
-        return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
-    }
-
+    return new ResponseEntity<>(clienteResponse, HttpStatus.CREATED);
+  }
 }

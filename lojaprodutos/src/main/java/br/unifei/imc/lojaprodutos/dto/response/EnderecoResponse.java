@@ -9,18 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 public class EnderecoResponse {
 
-    private Integer id;
+  private Integer id;
 
-    private String street;
+  private String street;
 
-    private String number;
+  private String number;
 
-    private String complement;
+  private String complement;
 
-    private String neighborhood;
+  private String neighborhood;
 
-    private String zipCode;
+  private String zipCode;
 
-    private CidadeResponse city;
-
+  private CidadeResponse city;
 }

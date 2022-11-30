@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FinalizaPedidoResponse {
 
-    private String email;
+  private String email;
 
-    private Integer payment;
+  private Integer payment;
 
-    private EnderecoResponse address;
+  private EnderecoResponse address;
 
-    private List<ProdutoResponse> products;
+  private List<ProdutoResponse> products;
 
-    private Double totalPrice;
-
+  private Double totalPrice;
 }

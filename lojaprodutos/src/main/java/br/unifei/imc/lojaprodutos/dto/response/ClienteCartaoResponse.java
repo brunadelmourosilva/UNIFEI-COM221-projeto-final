@@ -11,8 +11,7 @@ import java.util.List;
 @Data
 public class ClienteCartaoResponse {
 
-    private String name;
+  private String name;
 
-    private String email;
-
+  private String email;
 }

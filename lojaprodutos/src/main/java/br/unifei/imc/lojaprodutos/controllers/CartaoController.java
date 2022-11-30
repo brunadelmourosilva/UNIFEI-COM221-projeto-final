@@ -21,21 +21,22 @@ import java.util.List;
 @Tag(name = "Cartão Controller")
 public class CartaoController {
 
-    private CartaoService cartaoService;
+  private CartaoService cartaoService;
 
-    @PostMapping
-    @Operation(summary = "Realiza o cadastro do cartão do cliente")
-    public ResponseEntity<CartaoResponse> insertCard(@RequestBody CartaoRequest cartaoRequest) {
-        var cartaoResponse = cartaoService.insertCard(cartaoRequest);
+  @PostMapping
+  @Operation(summary = "Realiza o cadastro do cartão do cliente")
+  public ResponseEntity<CartaoResponse> insertCard(@RequestBody CartaoRequest cartaoRequest) {
+    var cartaoResponse = cartaoService.insertCard(cartaoRequest);
 
-        return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
-    }
+    return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
+  }
 
-    @GetMapping(value = "/{clienteId}")
-    @Operation(summary = "Retorna o cartão de um cliente")
-    public ResponseEntity<CartaoResponse> findCardByCustomer(@PathVariable(name = "clienteId") Integer id) {
-        var cartaoResponse = cartaoService.getCardByCustomer(id);
+  @GetMapping(value = "/{clienteId}")
+  @Operation(summary = "Retorna o cartão de um cliente")
+  public ResponseEntity<CartaoResponse> findCardByCustomer(
+      @PathVariable(name = "clienteId") Integer id) {
+    var cartaoResponse = cartaoService.getCardByCustomer(id);
 
-        return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
-    }
+    return new ResponseEntity<>(cartaoResponse, HttpStatus.CREATED);
+  }
 }

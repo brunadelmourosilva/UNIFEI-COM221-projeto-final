@@ -11,11 +11,11 @@ import java.util.List;
 @Data
 public class ClienteCadastroRequest {
 
-    private String name;
+  private String name;
 
-    private String email;
+  private String email;
 
-    private String password;
+  private String password;
 
-    private List<EnderecoCadastroRequest> addresses;
+  private List<EnderecoCadastroRequest> addresses;
 }

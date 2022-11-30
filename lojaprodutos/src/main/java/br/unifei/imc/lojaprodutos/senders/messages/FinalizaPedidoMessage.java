@@ -14,17 +14,17 @@ import java.util.List;
 @NoArgsConstructor
 public class FinalizaPedidoMessage {
 
-    private Integer id;
+  private Integer id;
 
-    private Date date;
+  private Date date;
 
-    private ClienteMessage customer;
+  private ClienteMessage customer;
 
-    private List<ProdutoMessage> products;
+  private List<ProdutoMessage> products;
 
-    private EnderecoMessage address;
+  private EnderecoMessage address;
 
-    private Double totalPrice;
+  private Double totalPrice;
 
-    private Integer payment;
+  private Integer payment;
 }

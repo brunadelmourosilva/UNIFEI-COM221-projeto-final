@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProdutoRequest {
 
-    private Integer id;
+  private Integer id;
 
-    private String name;
+  private String name;
 
-    private Double price;
-    
-    private String image;
-    
+  private Double price;
+
+  private String image;
 }

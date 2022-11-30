@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CidadeMessage {
 
-    private String name;
-    private EstadoMessage state;
+  private String name;
+  private EstadoMessage state;
 }

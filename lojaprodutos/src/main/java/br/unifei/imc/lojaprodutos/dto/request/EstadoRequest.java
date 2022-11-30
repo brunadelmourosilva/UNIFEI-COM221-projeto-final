@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class EstadoRequest {
 
-    private Integer id;
+  private Integer id;
 
-    private String name;
+  private String name;
 }

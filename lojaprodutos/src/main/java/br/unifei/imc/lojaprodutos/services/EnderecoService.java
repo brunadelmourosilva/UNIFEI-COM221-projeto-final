@@ -18,29 +18,31 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EnderecoService {
 
-    private ModelMapper modelMapper;
+  private ModelMapper modelMapper;
 
-    private EnderecoRepository enderecoRepository;
+  private EnderecoRepository enderecoRepository;
 
-    public List<EnderecoResponse> insertAddresses(ClienteCadastroRequest clienteCadastroRequest, Cliente cliente) {
+  public List<EnderecoResponse> insertAddresses(
+      ClienteCadastroRequest clienteCadastroRequest, Cliente cliente) {
 
-        var enderecos = clienteCadastroRequest.getAddresses()
-                .stream()
-                .map(endereco -> modelMapper.map(endereco, Endereco.class))
-                .collect(Collectors.toList());
+    var enderecos =
+        clienteCadastroRequest
+            .getAddresses()
+            .stream()
+            .map(endereco -> modelMapper.map(endereco, Endereco.class))
+            .collect(Collectors.toList());
 
-        enderecos.forEach(endereco -> endereco.setCustomer(cliente));
+    enderecos.forEach(endereco -> endereco.setCustomer(cliente));
 
-        var enderecosSalvos = enderecoRepository.saveAll(enderecos);
+    var enderecosSalvos = enderecoRepository.saveAll(enderecos);
 
-        return enderecosSalvos
-                .stream()
-                .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
-                .collect(Collectors.toList());
-    }
+    return enderecosSalvos
+        .stream()
+        .map(endereco -> modelMapper.map(endereco, EnderecoResponse.class))
+        .collect(Collectors.toList());
+  }
 
-    List<Endereco> getAllAddressesByCustomerId(Integer id) {
-        return enderecoRepository.findAllAddressesByCustomerId(id);
-    }
-
+  List<Endereco> getAllAddressesByCustomerId(Integer id) {
+    return enderecoRepository.findAllAddressesByCustomerId(id);
+  }
 }

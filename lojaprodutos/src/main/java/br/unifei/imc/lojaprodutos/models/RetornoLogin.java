@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RetornoLogin {
 
-    private Cliente cliente;
-    private String token;
-    
+  private Cliente cliente;
+  private String token;
 }
