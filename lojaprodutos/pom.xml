@@ -19,10 +19,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.coveo</groupId>
+			<groupId>com.spotify.fmt</groupId>
 			<artifactId>fmt-maven-plugin</artifactId>
-			<version>1.8.0</version>
-			<type>maven-plugin</type>
+			<version>2.19</version>
 		</dependency>
 	
 		<dependency>
