@@ -8,6 +8,7 @@ import br.unifei.imc.lojaprodutos.dto.response.PedidoResponse;
 import br.unifei.imc.lojaprodutos.dto.response.ProdutoResponse;
 import br.unifei.imc.lojaprodutos.exceptions.EmailJaCadastradoException;
 import br.unifei.imc.lojaprodutos.exceptions.ObjectNotFoundException;
+import br.unifei.imc.lojaprodutos.exceptions.SenhaMenorSeisDigitosException;
 import br.unifei.imc.lojaprodutos.models.Cliente;
 import br.unifei.imc.lojaprodutos.models.Pedido;
 import br.unifei.imc.lojaprodutos.models.Produto;
@@ -59,8 +60,9 @@ public class ClienteService {
 
   public ClienteResponse insertCustomer(ClienteCadastroRequest clienteCadastroRequest) {
 
-    if (clienteRepository.findByEmail(clienteCadastroRequest.getEmail()) != null)
-      throw new EmailJaCadastradoException("O e-mail informado já está cadastado.");
+    validatePassword(clienteCadastroRequest.getPassword());
+
+    validateEmail(clienteCadastroRequest.getEmail());
 
     var cliente = modelMapper.map(clienteCadastroRequest, Cliente.class);
     cliente.setPassword(encoder.encode(clienteCadastroRequest.getPassword()));
@@ -125,5 +127,15 @@ public class ClienteService {
         });
 
     return pedidosResponse;
+  }
+
+  private void validatePassword(String password) {
+    if (password.length() < 6)
+      throw new SenhaMenorSeisDigitosException("A senha informada deve ter mais que 6 digítos.");
+  }
+
+  private void validateEmail(String email) {
+    if (clienteRepository.findByEmail(email) != null)
+      throw new EmailJaCadastradoException("O e-mail informado já está cadastado.");
   }
 }

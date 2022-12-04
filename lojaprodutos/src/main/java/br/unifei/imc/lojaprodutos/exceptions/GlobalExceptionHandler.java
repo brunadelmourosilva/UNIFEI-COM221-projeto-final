@@ -31,4 +31,12 @@ public class GlobalExceptionHandler {
 
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(SenhaMenorSeisDigitosException.class)
+  public ResponseEntity<StandardError> senhaMenorQueSeisDigitosException(
+      SenhaMenorSeisDigitosException e) {
+    var error = new StandardError(e.getMessage(), Date.from(Instant.now()));
+
+    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+  }
 }
