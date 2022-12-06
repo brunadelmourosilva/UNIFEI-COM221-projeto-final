@@ -8,7 +8,7 @@ Em suma, o back-end da aplicação consiste de dois microservices, com as seguin
 
 - microservice lojaprodutos: ....
 
--microservice lojaprodutosconsumer: responsável por receber os dados referentes à finalização do pedido feito pelo usuário, através do microservice **lojaprodutos**.
+- microservice lojaprodutosconsumer: responsável por receber os dados referentes à finalização do pedido feito pelo usuário, através do microservice **lojaprodutos**.
 Dessa forma, o microservice realizará o envio do e-mail contendo as informações do pedido, bem como o método de pagamento escolhido. Vale ressaltar que, a comunicação entre os dois microservices é realizada de maneira assíncrona, utilizando a ferramenta RabbitMQ como gerenciador das mensagens enviadas e recebidas. 
 
 Por fim e não menos importante, a aplicação como um todo, incluindo back-end e front-end encontra-se conteinerizada com a ferramenta Docker e hospedada pela máquina virtual Amazon EC2.
@@ -31,8 +31,12 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * Spring Validation
 * Spring Mail
 
+<br/>
+
 * Junit 5
 * Mockito
+
+<br/>
 
 * Maven
 * Thymeleaf
@@ -42,7 +46,12 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * Swagger
 * Coveo plugin
 
+<br/>
+
+
 * H2 Database
+
+<br/>
 
 * RabbitMQ
 * Docker
