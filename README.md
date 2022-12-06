@@ -22,6 +22,19 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 
 ---
 
+### Desing patterns utilizados 📚
+
+### Strategy
+> ....
+
+### Builder
+> ....
+
+### DTO(Data Transfer Object)
+> ....
+
+---
+
 ### Tecnologias 🖥️
 
 * Java 11
@@ -30,14 +43,8 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * Spring Security e JWT
 * Spring Validation
 * Spring Mail
-
-<br/>
-
 * Junit 5
 * Mockito
-
-<br/>
-
 * Maven
 * Thymeleaf
 * Google SMTP
@@ -45,14 +52,7 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * ModelMapper
 * Swagger
 * Coveo plugin
-
-<br/>
-
-
 * H2 Database
-
-<br/>
-
 * RabbitMQ
 * Docker
 * Amazon Elastic Compute Cloud(EC2)
