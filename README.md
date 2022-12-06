@@ -22,7 +22,7 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 
 ---
 
-### Desing patterns utilizados 📚
+### Design patterns utilizados 📚
 
 ### Strategy
 > ....
