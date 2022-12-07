@@ -23,6 +23,8 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 ### Apresentação do sistema: 
 [![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://www.youtube.com/watch?v=fWvKvOViM3g)
 
+
+[![Everything Is AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://youtu.be/StTqXEQ2l-Y?t=35s "Everything Is AWESOME")
 ---
 
 ### Design patterns utilizados 📚
