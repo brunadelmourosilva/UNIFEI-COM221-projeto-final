@@ -41,6 +41,7 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * RabbitMQ
 * Docker
 * Amazon Elastic Compute Cloud(EC2)
+* Amazon S3
 
 ---
 
