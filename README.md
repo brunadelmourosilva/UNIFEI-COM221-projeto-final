@@ -20,26 +20,6 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 
 ---
 
-### Apresentação do sistema: 
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://www.youtube.com/watch?v=fWvKvOViM3g)
-
-
-[![Everything Is AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://youtu.be/StTqXEQ2l-Y?t=35s "Everything Is AWESOME")
----
-
-### Design patterns utilizados 📚
-
-### Strategy
-> Design pattern aplicado para o gerenciamento dos templates(criados com a biblioteca Thymeleaf) destinados ao e-mail, quando for escolhidor um dos métodos de pagamento, sendo eles, PIX ou cartão de crédito.
-
-### Builder
-> Design pattern aplicado para a construção de objetos, de maneira mais flexível e menos verbosa.
-
-### DTO(Data Transfer Object)
-> Design pattern aplicado tanto para receber dados do front-end, quanto para enviá-los a partir do back-end. Em suma, seriam classes que provêm exatamente aquilo que é necessário para um determinado processo. 
-
----
-
 ### Tecnologias 🖥️
 
 * Java 11
@@ -63,3 +43,20 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 * Amazon Elastic Compute Cloud(EC2)
 
 ---
+
+### Design patterns utilizados 📚
+
+### Strategy
+> Design pattern aplicado para o gerenciamento dos templates(criados com a biblioteca Thymeleaf) destinados ao e-mail, quando for escolhidor um dos métodos de pagamento, sendo eles, PIX ou cartão de crédito.
+
+### Builder
+> Design pattern aplicado para a construção de objetos, de maneira mais flexível e menos verbosa.
+
+### DTO(Data Transfer Object)
+> Design pattern aplicado tanto para receber dados do front-end, quanto para enviá-los a partir do back-end. Em suma, seriam classes que provêm exatamente aquilo que é necessário para um determinado processo. 
+
+---
+
+### Apresentação do sistema: 
+
+[![Watch the video](https://github.com/brunadelmourosilva/UNIFEI-COM221-projeto-final/blob/master/Thumbnail.PNG?raw=true)](https://www.youtube.com/watch?v=fWvKvOViM3g)
