@@ -28,12 +28,10 @@
     <table border="1">
         <tr>
             <th>Product</th>
-            <th>Amount</th>
             <th>Unitary price</th>
         </tr>
         <tr th:each="product : ${message.products}">
             <td th:text="${product.name}">name</td>
-            <td th:text="${product.quantity}">quantity</td>
             <td th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 2,
 'COMMA')}">price</td>
         </tr>
