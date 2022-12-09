@@ -16,5 +16,5 @@ public class FinalizaPedidoRequest {
 
   private List<ProdutoRequest> products;
 
-  private Double totalPrice;
+  private Double valorTotal;
 }

@@ -10,6 +10,7 @@ import br.unifei.imc.lojaprodutos.senders.messages.ClienteMessage;
 import br.unifei.imc.lojaprodutos.senders.messages.EnderecoMessage;
 import br.unifei.imc.lojaprodutos.senders.messages.FinalizaPedidoMessage;
 import br.unifei.imc.lojaprodutos.senders.messages.ProdutoMessage;
+
 import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,52 +30,47 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PedidoService {
 
-  private ClienteService clienteService;
+	private ClienteService clienteService;
 
-  private PedidoRepository pedidoRepository;
+	private PedidoRepository pedidoRepository;
 
-  private EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 
-  private FinalizaPedidoSender finishOrderSender;
+	private FinalizaPedidoSender finishOrderSender;
 
-  private ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
-  public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
-    var cliente = getUserDetails();
+	public String insertOrder(FinalizaPedidoRequest finalizaPedidoRequest) {
 
-    Endereco endereco =
-        enderecoRepository
-            .findById(finalizaPedidoRequest.getAddress().getId())
-            .orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
+		var cliente = getUserDetails();
 
-    var produtos =
-        finalizaPedidoRequest
-            .getProducts()
-            .stream()
-            .map(produto -> modelMapper.map(produto, Produto.class))
-            .collect(Collectors.toList());
+		Endereco endereco = enderecoRepository.findById(finalizaPedidoRequest.getAddress().getId())
+				.orElseThrow(() -> new ObjectNotFoundException(1, "Endereço não encontrado"));
 
-    var pedido = new Pedido();
-    pedido.setCustomer(cliente);
-    pedido.setDate(Date.from(Instant.now()));
-    pedido.setAddress(endereco);
-    pedido.setProducts(produtos);
-    pedido.setTotalPrice(finalizaPedidoRequest.getTotalPrice());
-    pedido.setPayment(finalizaPedidoRequest.getPayment());
+		var produtos = finalizaPedidoRequest.getProducts().stream().map(produto -> modelMapper.map(produto, Produto.class))
+				.collect(Collectors.toList());
 
-    pedidoRepository.save(pedido);
+		var pedido = new Pedido();
+		pedido.setCustomer(cliente);
+		pedido.setDate(Date.from(Instant.now()));
+		pedido.setAddress(endereco);
+		pedido.setProducts(produtos);
+		pedido.setTotalPrice(finalizaPedidoRequest.getValorTotal());
+		pedido.setPayment(finalizaPedidoRequest.getPayment());
 
-    convertModelToPublishMessage(pedido);
+		pedidoRepository.save(pedido);
 
-    return "Pedido salvo com sucesso!";
-  }
+		convertModelToPublishMessage(pedido);
+
+		return "Pedido salvo com sucesso!";
+	}
 
   private Cliente getUserDetails() {
     var usuarioLogado =
         (UsuarioSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    return clienteService.getCustomerById(usuarioLogado.getId());
-  }
+		return clienteService.getCustomerById(usuarioLogado.getId());
+	}
 
   private void convertModelToPublishMessage(Pedido pedido) {
     var clienteMessage = modelMapper.map(pedido.getCustomer(), ClienteMessage.class);
@@ -100,10 +96,11 @@ public class PedidoService {
     message.setProducts(produtoMessage);
     message.setCustomer(clienteMessage);
 
-    senderOrderToQueue(message);
-  }
+	senderOrderToQueue(message);
+	}
 
-  private void senderOrderToQueue(FinalizaPedidoMessage finalizaPedidoMessage) {
-    finishOrderSender.publishMessage(finalizaPedidoMessage);
-  }
+	private void senderOrderToQueue(FinalizaPedidoMessage finalizaPedidoMessage) {
+
+		finishOrderSender.publishMessage(finalizaPedidoMessage);
+	}
 }
