@@ -60,4 +60,4 @@ Por fim e não menos importante, a aplicação como um todo, incluindo back-end 
 
 ### Apresentação do sistema: 
 
-[![Watch the video](https://github.com/brunadelmourosilva/UNIFEI-COM221-projeto-final/blob/master/Thumbnail.PNG?raw=true)](https://drive.google.com/file/d/1TEKve-OaBWsQqlQbzJP_uH9bJQkxjIm7/view?usp=share_link)
+[![Watch the video](https://github.com/brunadelmourosilva/UNIFEI-COM221-projeto-final/blob/master/Thumbnail.PNG?raw=true)](https://www.youtube.com/watch?v=HuqV5qcEEAs)
